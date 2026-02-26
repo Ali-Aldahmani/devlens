@@ -1,5 +1,5 @@
 {
-  "name": "devlens",
+  "name": "devlens-ext",
   "displayName": "DevLens",
   "description": "Instant cheat sheets for popular libraries — displayed right next to your code.",
   "version": "0.1.0",
