@@ -2,7 +2,7 @@
   "name": "devlens-aldahmani",
   "displayName": "DevLens - Code Reference",
   "description": "Instant cheat sheets for popular libraries — displayed right next to your code.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Ali-Aldahmani/devlens.git"
@@ -77,7 +77,13 @@
         "devLens.defaultLibrary": {
           "type": "string",
           "default": "pandas",
-          "enum": ["numpy", "pandas", "matplotlib", "seaborn", "sklearn"],
+          "enum": [
+            "numpy",
+            "pandas",
+            "matplotlib",
+            "seaborn",
+            "sklearn"
+          ],
           "description": "Library shown by default when the panel opens."
         }
       }
