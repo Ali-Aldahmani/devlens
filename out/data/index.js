@@ -1,15 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sklearn = exports.seaborn = exports.matplotlib = exports.pandas = exports.numpy = exports.importDetectionMap = exports.libraries = void 0;
-const numpy_1 = require("./numpy");
+const numpy_1 = require("./python/numpy");
 Object.defineProperty(exports, "numpy", { enumerable: true, get: function () { return numpy_1.numpy; } });
-const pandas_1 = require("./pandas");
+const pandas_1 = require("./python/pandas");
 Object.defineProperty(exports, "pandas", { enumerable: true, get: function () { return pandas_1.pandas; } });
-const matplotlib_1 = require("./matplotlib");
+const matplotlib_1 = require("./python/matplotlib");
 Object.defineProperty(exports, "matplotlib", { enumerable: true, get: function () { return matplotlib_1.matplotlib; } });
-const seaborn_1 = require("./seaborn");
+const seaborn_1 = require("./python/seaborn");
 Object.defineProperty(exports, "seaborn", { enumerable: true, get: function () { return seaborn_1.seaborn; } });
-const sklearn_1 = require("./sklearn");
+const sklearn_1 = require("./python/sklearn");
 Object.defineProperty(exports, "sklearn", { enumerable: true, get: function () { return sklearn_1.sklearn; } });
 // Registry of all available libraries
 exports.libraries = {

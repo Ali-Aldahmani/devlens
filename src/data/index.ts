@@ -1,8 +1,8 @@
-import { numpy } from "./numpy";
-import { pandas } from "./pandas";
-import { matplotlib } from "./matplotlib";
-import { seaborn } from "./seaborn";
-import { sklearn } from "./sklearn";
+import { numpy } from "./python/numpy";
+import { pandas } from "./python/pandas";
+import { matplotlib } from "./python/matplotlib";
+import { seaborn } from "./python/seaborn";
+import { sklearn } from "./python/sklearn";
 
 export interface CheatSheetItem {
   snippet: string;
