@@ -1,0 +1,97 @@
+{
+  "name": "devlens",
+  "displayName": "DevLens",
+  "description": "Instant cheat sheets for popular libraries — displayed right next to your code.",
+  "version": "0.1.0",
+  "publisher": "your-publisher-name",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other",
+    "Education",
+    "Snippets"
+  ],
+  "keywords": [
+    "python",
+    "cheat sheet",
+    "numpy",
+    "pandas",
+    "matplotlib",
+    "seaborn",
+    "scikit-learn",
+    "data science",
+    "devlens",
+    "snippets"
+  ],
+  "icon": "media/icon.png",
+  "activationEvents": [
+    "onLanguage:python"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "devLens.open",
+        "title": "Open DevLens",
+        "icon": "$(eye)",
+        "category": "DevLens"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "devLens.open",
+        "key": "ctrl+shift+/",
+        "mac": "cmd+ctrl+d",
+        "when": "editorLangId == python"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "devLens.open",
+          "when": "editorLangId == python",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "devLens.open",
+          "when": "editorLangId == python",
+          "group": "z_commands"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "DevLens",
+      "properties": {
+        "devLens.autoDetect": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically switch the cheat sheet when imports are detected in the active file."
+        },
+        "devLens.defaultLibrary": {
+          "type": "string",
+          "default": "pandas",
+          "enum": ["numpy", "pandas", "matplotlib", "seaborn", "sklearn"],
+          "description": "Library shown by default when the panel opens."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.0.0",
+    "@vscode/vsce": "^2.19.0"
+  }
+}

@@ -1,0 +1,99 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.pandas = void 0;
+exports.pandas = {
+    name: "Pandas",
+    import: "import pandas as pd",
+    categories: [
+        {
+            title: "Creating DataFrames",
+            items: [
+                { snippet: "pd.DataFrame({'a': [1,2], 'b': [3,4]})", desc: "From dictionary" },
+                { snippet: "pd.read_csv('file.csv')", desc: "Load CSV file" },
+                { snippet: "pd.read_excel('file.xlsx')", desc: "Load Excel file" },
+                { snippet: "pd.read_json('file.json')", desc: "Load JSON file" },
+                { snippet: "pd.read_sql(query, conn)", desc: "Load from SQL query" },
+                { snippet: "pd.DataFrame(np_array, columns=['a','b'])", desc: "From NumPy array" },
+            ],
+        },
+        {
+            title: "Exploring Data",
+            items: [
+                { snippet: "df.head(10)", desc: "First 10 rows" },
+                { snippet: "df.tail(5)", desc: "Last 5 rows" },
+                { snippet: "df.shape", desc: "Rows and columns count" },
+                { snippet: "df.info()", desc: "Column types and nulls summary" },
+                { snippet: "df.describe()", desc: "Statistical summary" },
+                { snippet: "df.dtypes", desc: "Data type of each column" },
+                { snippet: "df.columns.tolist()", desc: "List of column names" },
+                { snippet: "df.index", desc: "Row index info" },
+                { snippet: "df.value_counts()", desc: "Count of unique values" },
+                { snippet: "df.nunique()", desc: "Number of unique values per col" },
+            ],
+        },
+        {
+            title: "Selecting & Filtering",
+            items: [
+                { snippet: "df['column']", desc: "Select single column (Series)" },
+                { snippet: "df[['col1', 'col2']]", desc: "Select multiple columns" },
+                { snippet: "df.loc[0:5, 'col']", desc: "Label-based loc selection" },
+                { snippet: "df.iloc[0:5, 0:2]", desc: "Integer-based iloc selection" },
+                { snippet: "df[df['col'] > 10]", desc: "Filter rows by condition" },
+                { snippet: "df.query('age > 18 and city == \"NY\"')", desc: "SQL-like query string" },
+                { snippet: "df[df['col'].isin([1, 2, 3])]", desc: "Filter by value list" },
+                { snippet: "df[df['col'].str.contains('text')]", desc: "Filter by string match" },
+            ],
+        },
+        {
+            title: "Cleaning Data",
+            items: [
+                { snippet: "df.isnull().sum()", desc: "Count nulls per column" },
+                { snippet: "df.dropna()", desc: "Drop rows with any null" },
+                { snippet: "df.dropna(subset=['col'])", desc: "Drop rows where col is null" },
+                { snippet: "df.fillna(0)", desc: "Fill nulls with 0" },
+                { snippet: "df.fillna(df.mean())", desc: "Fill nulls with column mean" },
+                { snippet: "df.drop_duplicates()", desc: "Remove duplicate rows" },
+                { snippet: "df.rename(columns={'old': 'new'})", desc: "Rename columns" },
+                { snippet: "df.drop(columns=['col1'])", desc: "Drop a column" },
+                { snippet: "df['col'].astype(int)", desc: "Change column data type" },
+                { snippet: "df['col'].str.strip()", desc: "Strip whitespace from strings" },
+                { snippet: "df['col'].str.lower()", desc: "Lowercase string column" },
+            ],
+        },
+        {
+            title: "Transforming",
+            items: [
+                { snippet: "df['new'] = df['a'] + df['b']", desc: "Create new column" },
+                { snippet: "df['col'].apply(lambda x: x * 2)", desc: "Apply function to column" },
+                { snippet: "df.apply(func, axis=1)", desc: "Apply function row-wise" },
+                { snippet: "df.sort_values('col', ascending=False)", desc: "Sort by column" },
+                { snippet: "df.reset_index(drop=True)", desc: "Reset row index" },
+                { snippet: "df.set_index('col')", desc: "Set column as index" },
+                { snippet: "pd.get_dummies(df['col'])", desc: "One-hot encode column" },
+                { snippet: "df['col'].map({'a': 1, 'b': 2})", desc: "Map values to new values" },
+            ],
+        },
+        {
+            title: "Grouping & Aggregating",
+            items: [
+                { snippet: "df.groupby('col').mean()", desc: "Group and compute mean" },
+                { snippet: "df.groupby('col').agg({'a': 'sum', 'b': 'mean'})", desc: "Multiple aggregations" },
+                { snippet: "df.groupby(['col1','col2']).size()", desc: "Group by multiple cols" },
+                { snippet: "df.pivot_table(values='v', index='r', columns='c')", desc: "Pivot table" },
+                { snippet: "df.merge(df2, on='id', how='left')", desc: "Left join two DataFrames" },
+                { snippet: "pd.concat([df1, df2], axis=0)", desc: "Stack DataFrames vertically" },
+                { snippet: "df['col'].rolling(7).mean()", desc: "7-period rolling average" },
+            ],
+        },
+        {
+            title: "Exporting",
+            items: [
+                { snippet: "df.to_csv('file.csv', index=False)", desc: "Save to CSV" },
+                { snippet: "df.to_excel('file.xlsx', index=False)", desc: "Save to Excel" },
+                { snippet: "df.to_json('file.json')", desc: "Save to JSON" },
+                { snippet: "df.to_sql('table', conn)", desc: "Save to SQL table" },
+            ],
+        },
+    ],
+};
+//# sourceMappingURL=pandas.js.map
