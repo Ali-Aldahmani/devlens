@@ -1,0 +1,91 @@
+export const html = {
+  name: "HTML",
+  import: "<!-- HTML5 Boilerplate -->",
+  categories: [
+    {
+      title: "Document Structure",
+      items: [
+        { snippet: "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\" />\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n  <title>Page Title</title>\n</head>\n<body>\n  \n</body>\n</html>", desc: "HTML5 boilerplate" },
+        { snippet: "<meta charset=\"UTF-8\" />", desc: "Character encoding" },
+        { snippet: "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />", desc: "Responsive viewport meta" },
+        { snippet: "<meta name=\"description\" content=\"Page description\" />", desc: "SEO description meta" },
+        { snippet: "<link rel=\"stylesheet\" href=\"styles.css\" />", desc: "Link external CSS" },
+        { snippet: "<script src=\"app.js\" defer></script>", desc: "Deferred script tag" },
+        { snippet: "<link rel=\"icon\" href=\"favicon.ico\" />", desc: "Favicon link" },
+      ],
+    },
+    {
+      title: "Semantic Layout",
+      items: [
+        { snippet: "<header>\n  <nav></nav>\n</header>", desc: "Page header with nav" },
+        { snippet: "<main>\n  <section>\n    <article></article>\n  </section>\n</main>", desc: "Main content structure" },
+        { snippet: "<aside></aside>", desc: "Sidebar / aside content" },
+        { snippet: "<footer></footer>", desc: "Page footer" },
+        { snippet: "<nav>\n  <ul>\n    <li><a href=\"#\">Link</a></li>\n  </ul>\n</nav>", desc: "Navigation list" },
+        { snippet: "<figure>\n  <img src=\"\" alt=\"\" />\n  <figcaption>Caption</figcaption>\n</figure>", desc: "Figure with caption" },
+      ],
+    },
+    {
+      title: "Text & Headings",
+      items: [
+        { snippet: "<h1>Heading 1</h1>", desc: "Top-level heading" },
+        { snippet: "<h2>Heading 2</h2>", desc: "Second-level heading" },
+        { snippet: "<p>Paragraph text</p>", desc: "Paragraph" },
+        { snippet: "<strong>Bold text</strong>", desc: "Strong importance (bold)" },
+        { snippet: "<em>Italic text</em>", desc: "Emphasis (italic)" },
+        { snippet: "<mark>Highlighted text</mark>", desc: "Highlighted text" },
+        { snippet: "<code>inline code</code>", desc: "Inline code" },
+        { snippet: "<pre><code>code block</code></pre>", desc: "Code block" },
+        { snippet: "<blockquote cite=\"url\">Quote text</blockquote>", desc: "Blockquote" },
+        { snippet: "<abbr title=\"HyperText Markup Language\">HTML</abbr>", desc: "Abbreviation with tooltip" },
+      ],
+    },
+    {
+      title: "Links & Media",
+      items: [
+        { snippet: "<a href=\"https://example.com\" target=\"_blank\" rel=\"noopener\">Link</a>", desc: "External link (secure)" },
+        { snippet: "<a href=\"#section-id\">Jump to section</a>", desc: "Anchor link" },
+        { snippet: "<img src=\"image.jpg\" alt=\"Description\" width=\"800\" height=\"600\" />", desc: "Responsive image" },
+        { snippet: "<picture>\n  <source srcset=\"img.webp\" type=\"image/webp\" />\n  <img src=\"img.jpg\" alt=\"\" />\n</picture>", desc: "Picture with WebP fallback" },
+        { snippet: "<video controls>\n  <source src=\"video.mp4\" type=\"video/mp4\" />\n</video>", desc: "Video element" },
+        { snippet: "<audio controls>\n  <source src=\"audio.mp3\" type=\"audio/mpeg\" />\n</audio>", desc: "Audio element" },
+      ],
+    },
+    {
+      title: "Lists & Tables",
+      items: [
+        { snippet: "<ul>\n  <li>Item</li>\n  <li>Item</li>\n</ul>", desc: "Unordered list" },
+        { snippet: "<ol>\n  <li>First</li>\n  <li>Second</li>\n</ol>", desc: "Ordered list" },
+        { snippet: "<dl>\n  <dt>Term</dt>\n  <dd>Definition</dd>\n</dl>", desc: "Definition list" },
+        { snippet: "<table>\n  <thead>\n    <tr><th>Header</th></tr>\n  </thead>\n  <tbody>\n    <tr><td>Cell</td></tr>\n  </tbody>\n</table>", desc: "Accessible table structure" },
+      ],
+    },
+    {
+      title: "Forms & Inputs",
+      items: [
+        { snippet: "<form action=\"/submit\" method=\"POST\">\n  \n</form>", desc: "Form element" },
+        { snippet: "<label for=\"email\">Email</label>\n<input type=\"email\" id=\"email\" name=\"email\" required />", desc: "Labeled email input" },
+        { snippet: "<input type=\"text\" placeholder=\"Enter text\" />", desc: "Text input" },
+        { snippet: "<input type=\"password\" name=\"password\" />", desc: "Password input" },
+        { snippet: "<input type=\"checkbox\" id=\"check\" />\n<label for=\"check\">Agree</label>", desc: "Checkbox with label" },
+        { snippet: "<select name=\"color\">\n  <option value=\"red\">Red</option>\n  <option value=\"blue\">Blue</option>\n</select>", desc: "Select dropdown" },
+        { snippet: "<textarea name=\"message\" rows=\"4\"></textarea>", desc: "Textarea" },
+        { snippet: "<button type=\"submit\">Submit</button>", desc: "Submit button" },
+        { snippet: "<input type=\"range\" min=\"0\" max=\"100\" value=\"50\" />", desc: "Range slider" },
+        { snippet: "<input type=\"file\" accept=\"image/*\" />", desc: "File input (images only)" },
+      ],
+    },
+    {
+      title: "ARIA & Accessibility",
+      items: [
+        { snippet: "role=\"button\"", desc: "ARIA button role" },
+        { snippet: "aria-label=\"Close dialog\"", desc: "Accessible label" },
+        { snippet: "aria-hidden=\"true\"", desc: "Hide from screen readers" },
+        { snippet: "aria-expanded=\"false\"", desc: "Collapsible state" },
+        { snippet: "aria-live=\"polite\"", desc: "Live region announcements" },
+        { snippet: "tabindex=\"0\"", desc: "Make element focusable" },
+        { snippet: "<button aria-pressed=\"false\" onclick=\"this.setAttribute('aria-pressed', this.getAttribute('aria-pressed')==='true'?'false':'true')\">Toggle</button>", desc: "Toggle button with ARIA state" },
+      ],
+    },
+  ],
+};
