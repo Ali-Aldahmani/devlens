@@ -14,9 +14,9 @@
 <br/>
 
 [![Install DevLens](https://img.shields.io/badge/⬇%20Install%20on%20Marketplace-4d8cff?style=for-the-badge&logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com)
-[![GitHub Stars](https://img.shields.io/github/stars/YOUR_USERNAME/devlens?style=for-the-badge&logo=github&labelColor=0d0f14&color=5dffb0)](https://github.com/YOUR_USERNAME/devlens/stargazers)
-[![Report Bug](https://img.shields.io/badge/🐛%20Report%20Bug-ff5d87?style=for-the-badge)](https://github.com/YOUR_USERNAME/devlens/issues)
-[![Request Feature](https://img.shields.io/badge/✨%20Request%20Feature-ffb347?style=for-the-badge)](https://github.com/YOUR_USERNAME/devlens/issues)
+[![GitHub Stars](https://img.shields.io/github/stars/Ali-Aldahmani/devlens?style=for-the-badge&logo=github&labelColor=0d0f14&color=5dffb0)](https://github.com/Ali-Aldahmani/devlens/stargazers)
+[![Report Bug](https://img.shields.io/badge/🐛%20Report%20Bug-ff5d87?style=for-the-badge)](https://github.com/Ali-Aldahmani/devlens/issues)
+[![Request Feature](https://img.shields.io/badge/✨%20Request%20Feature-ffb347?style=for-the-badge)](https://github.com/Ali-Aldahmani/devlens/issues)
 
 </div>
 
@@ -96,7 +96,7 @@ Or right-click inside any `.py` file → **Open DevLens**
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/YOUR_USERNAME/devlens.git
+git clone https://github.com/Ali-Aldahmani/devlens.git
 cd devlens
 
 # 2. Install dependencies
@@ -194,13 +194,13 @@ Contributions are welcome! Whether it's a new library, a bug fix, or a feature i
 3. Commit your changes: `git commit -m "feat: add my feature"`
 4. Push and open a Pull Request
 
-[![Fork DevLens](https://img.shields.io/badge/🍴%20Fork%20this%20repo-0d0f14?style=for-the-badge&logo=github&logoColor=white)](https://github.com/YOUR_USERNAME/devlens/fork)
+[![Fork DevLens](https://img.shields.io/badge/🍴%20Fork%20this%20repo-0d0f14?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Ali-Aldahmani/devlens/fork)
 
 ---
 
 ## 📄 License
 
-MIT © [YOUR_NAME](https://github.com/YOUR_USERNAME)
+MIT © [Ali Aldahmani](https://github.com/Ali-Aldahmani)
 
 ---
 

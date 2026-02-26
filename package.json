@@ -3,7 +3,7 @@
   "displayName": "DevLens",
   "description": "Instant cheat sheets for popular libraries — displayed right next to your code.",
   "version": "0.1.0",
-  "publisher": "your-publisher-name",
+  "publisher": "AliAldahmani",
   "engines": {
     "vscode": "^1.80.0"
   },
