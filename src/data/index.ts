@@ -12,6 +12,11 @@ import { docker } from "./tools/docker";
 import { cmdw } from "./tools/cmdw";
 import { macos } from "./tools/macos";
 import { linux } from "./tools/linux";
+import { javascript } from "./javascript/javascript";
+import { react } from "./javascript/react";
+import { typescript } from "./javascript/typescript";
+import { reactDom } from "./javascript/reactdom";
+import { electronjs } from "./javascript/electron";
 
 
 export interface CheatSheetItem {
@@ -40,7 +45,7 @@ export interface LanguageGroup {
 
 // Registry of all available libraries
 export const libraries: Record<string, LibraryCheatSheet> = {
-  pythonFundamentals,
+  pythonFundamentals, javascript, react, typescript, reactDom, electronjs,
   numpy,
   pandas,
   matplotlib,
@@ -69,6 +74,11 @@ export const languageGroups: LanguageGroup[] = [
     libraries: ["html", "css", "tailwind"],
   },
   {
+    label: "JavaScript",
+    icon: "💻",
+    libraries: ["javascript", "react", "typescript", "reactDom", "electronjs"],
+  },
+  {
     label: "Tools",
     icon: "🧰",
     libraries: ["git", "docker", "cmdw", "macos"],
@@ -93,5 +103,5 @@ export const importDetectionMap: Record<string, string> = {
 };
 
 export { pythonFundamentals, numpy, pandas, matplotlib, seaborn, sklearn, html, css, tailwind, git, docker, cmdw,
-  macos, linux,
+  macos, linux, javascript, react, typescript, reactDom, electronjs,
  };

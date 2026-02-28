@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.linux = exports.macos = exports.cmdw = exports.docker = exports.git = exports.tailwind = exports.css = exports.html = exports.sklearn = exports.seaborn = exports.matplotlib = exports.pandas = exports.numpy = exports.pythonFundamentals = exports.importDetectionMap = exports.languageGroups = exports.libraries = void 0;
+exports.electronjs = exports.reactDom = exports.typescript = exports.react = exports.javascript = exports.linux = exports.macos = exports.cmdw = exports.docker = exports.git = exports.tailwind = exports.css = exports.html = exports.sklearn = exports.seaborn = exports.matplotlib = exports.pandas = exports.numpy = exports.pythonFundamentals = exports.importDetectionMap = exports.languageGroups = exports.libraries = void 0;
 const pythonFundamentals_1 = require("./python/pythonFundamentals");
 Object.defineProperty(exports, "pythonFundamentals", { enumerable: true, get: function () { return pythonFundamentals_1.pythonFundamentals; } });
 const numpy_1 = require("./python/numpy");
@@ -29,9 +29,19 @@ const macos_1 = require("./tools/macos");
 Object.defineProperty(exports, "macos", { enumerable: true, get: function () { return macos_1.macos; } });
 const linux_1 = require("./tools/linux");
 Object.defineProperty(exports, "linux", { enumerable: true, get: function () { return linux_1.linux; } });
+const javascript_1 = require("./javascript/javascript");
+Object.defineProperty(exports, "javascript", { enumerable: true, get: function () { return javascript_1.javascript; } });
+const react_1 = require("./javascript/react");
+Object.defineProperty(exports, "react", { enumerable: true, get: function () { return react_1.react; } });
+const typescript_1 = require("./javascript/typescript");
+Object.defineProperty(exports, "typescript", { enumerable: true, get: function () { return typescript_1.typescript; } });
+const reactdom_1 = require("./javascript/reactdom");
+Object.defineProperty(exports, "reactDom", { enumerable: true, get: function () { return reactdom_1.reactDom; } });
+const electron_1 = require("./javascript/electron");
+Object.defineProperty(exports, "electronjs", { enumerable: true, get: function () { return electron_1.electronjs; } });
 // Registry of all available libraries
 exports.libraries = {
-    pythonFundamentals: pythonFundamentals_1.pythonFundamentals,
+    pythonFundamentals: pythonFundamentals_1.pythonFundamentals, javascript: javascript_1.javascript, react: react_1.react, typescript: typescript_1.typescript, reactDom: reactdom_1.reactDom, electronjs: electron_1.electronjs,
     numpy: numpy_1.numpy,
     pandas: pandas_1.pandas,
     matplotlib: matplotlib_1.matplotlib,
@@ -57,6 +67,11 @@ exports.languageGroups = [
         label: "Web Dev",
         icon: "🌐",
         libraries: ["html", "css", "tailwind"],
+    },
+    {
+        label: "JavaScript",
+        icon: "💻",
+        libraries: ["javascript", "react", "typescript", "reactDom", "electronjs"],
     },
     {
         label: "Tools",
