@@ -1,3 +1,4 @@
+import { pythonFundamentals } from "./python/pythonFundamentals";
 import { numpy } from "./python/numpy";
 import { pandas } from "./python/pandas";
 import { matplotlib } from "./python/matplotlib";
@@ -39,6 +40,7 @@ export interface LanguageGroup {
 
 // Registry of all available libraries
 export const libraries: Record<string, LibraryCheatSheet> = {
+  pythonFundamentals,
   numpy,
   pandas,
   matplotlib,
@@ -59,7 +61,7 @@ export const languageGroups: LanguageGroup[] = [
   {
     label: "Python",
     icon: "🐍",
-    libraries: ["numpy", "pandas", "matplotlib", "seaborn", "sklearn"],
+    libraries: [ "pythonFundamentals", "numpy", "pandas", "matplotlib", "seaborn", "sklearn"],
   },
   {
     label: "Web Dev",
@@ -90,6 +92,6 @@ export const importDetectionMap: Record<string, string> = {
   // Web Dev (HTML/CSS auto-detected by file extension in extension.ts)
 };
 
-export { numpy, pandas, matplotlib, seaborn, sklearn, html, css, tailwind, git, docker, cmdw,
+export { pythonFundamentals, numpy, pandas, matplotlib, seaborn, sklearn, html, css, tailwind, git, docker, cmdw,
   macos, linux,
  };

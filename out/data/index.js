@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.linux = exports.macos = exports.cmdw = exports.docker = exports.git = exports.tailwind = exports.css = exports.html = exports.sklearn = exports.seaborn = exports.matplotlib = exports.pandas = exports.numpy = exports.importDetectionMap = exports.languageGroups = exports.libraries = void 0;
+exports.linux = exports.macos = exports.cmdw = exports.docker = exports.git = exports.tailwind = exports.css = exports.html = exports.sklearn = exports.seaborn = exports.matplotlib = exports.pandas = exports.numpy = exports.pythonFundamentals = exports.importDetectionMap = exports.languageGroups = exports.libraries = void 0;
+const pythonFundamentals_1 = require("./python/pythonFundamentals");
+Object.defineProperty(exports, "pythonFundamentals", { enumerable: true, get: function () { return pythonFundamentals_1.pythonFundamentals; } });
 const numpy_1 = require("./python/numpy");
 Object.defineProperty(exports, "numpy", { enumerable: true, get: function () { return numpy_1.numpy; } });
 const pandas_1 = require("./python/pandas");
@@ -29,6 +31,7 @@ const linux_1 = require("./tools/linux");
 Object.defineProperty(exports, "linux", { enumerable: true, get: function () { return linux_1.linux; } });
 // Registry of all available libraries
 exports.libraries = {
+    pythonFundamentals: pythonFundamentals_1.pythonFundamentals,
     numpy: numpy_1.numpy,
     pandas: pandas_1.pandas,
     matplotlib: matplotlib_1.matplotlib,
@@ -48,7 +51,7 @@ exports.languageGroups = [
     {
         label: "Python",
         icon: "🐍",
-        libraries: ["numpy", "pandas", "matplotlib", "seaborn", "sklearn"],
+        libraries: ["pythonFundamentals", "numpy", "pandas", "matplotlib", "seaborn", "sklearn"],
     },
     {
         label: "Web Dev",
