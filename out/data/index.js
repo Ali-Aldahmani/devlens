@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.electronjs = exports.reactDom = exports.typescript = exports.react = exports.javascript = exports.linux = exports.macos = exports.cmdw = exports.docker = exports.git = exports.tailwind = exports.css = exports.html = exports.sklearn = exports.seaborn = exports.matplotlib = exports.pandas = exports.numpy = exports.pythonFundamentals = exports.importDetectionMap = exports.languageGroups = exports.libraries = void 0;
+exports.nestjs = exports.angular = exports.nextjs = exports.electronjs = exports.reactDom = exports.typescript = exports.react = exports.javascript = exports.linux = exports.macos = exports.cmdw = exports.docker = exports.git = exports.tailwind = exports.css = exports.html = exports.sklearn = exports.seaborn = exports.matplotlib = exports.pandas = exports.numpy = exports.pythonFundamentals = exports.importDetectionMap = exports.languageGroups = exports.libraries = void 0;
 const pythonFundamentals_1 = require("./python/pythonFundamentals");
 Object.defineProperty(exports, "pythonFundamentals", { enumerable: true, get: function () { return pythonFundamentals_1.pythonFundamentals; } });
 const numpy_1 = require("./python/numpy");
@@ -39,10 +39,16 @@ const reactdom_1 = require("./javascript/reactdom");
 Object.defineProperty(exports, "reactDom", { enumerable: true, get: function () { return reactdom_1.reactDom; } });
 const electron_1 = require("./javascript/electron");
 Object.defineProperty(exports, "electronjs", { enumerable: true, get: function () { return electron_1.electronjs; } });
+const nextjs_1 = require("./javascript/nextjs");
+Object.defineProperty(exports, "nextjs", { enumerable: true, get: function () { return nextjs_1.nextjs; } });
+const angular_1 = require("./javascript/angular");
+Object.defineProperty(exports, "angular", { enumerable: true, get: function () { return angular_1.angular; } });
+const nestjs_1 = require("./javascript/nestjs");
+Object.defineProperty(exports, "nestjs", { enumerable: true, get: function () { return nestjs_1.nestjs; } });
 // Registry of all available libraries
 exports.libraries = {
-    pythonFundamentals: pythonFundamentals_1.pythonFundamentals, javascript: javascript_1.javascript, react: react_1.react, typescript: typescript_1.typescript, reactDom: reactdom_1.reactDom, electronjs: electron_1.electronjs,
-    numpy: numpy_1.numpy,
+    pythonFundamentals: pythonFundamentals_1.pythonFundamentals, javascript: javascript_1.javascript, react: react_1.react, typescript: typescript_1.typescript, reactDom: reactdom_1.reactDom, electronjs: electron_1.electronjs, nextjs: nextjs_1.nextjs,
+    angular: angular_1.angular, nestjs: nestjs_1.nestjs, numpy: numpy_1.numpy,
     pandas: pandas_1.pandas,
     matplotlib: matplotlib_1.matplotlib,
     seaborn: seaborn_1.seaborn,
@@ -71,7 +77,7 @@ exports.languageGroups = [
     {
         label: "JavaScript",
         icon: "💻",
-        libraries: ["javascript", "react", "typescript", "reactDom", "electronjs"],
+        libraries: ["javascript", "react", "typescript", "reactDom", "electronjs", "nextjs", "angular", "nestjs"],
     },
     {
         label: "Tools",

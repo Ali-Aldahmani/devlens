@@ -17,6 +17,9 @@ import { react } from "./javascript/react";
 import { typescript } from "./javascript/typescript";
 import { reactDom } from "./javascript/reactdom";
 import { electronjs } from "./javascript/electron";
+import { nextjs } from "./javascript/nextjs";
+import { angular } from "./javascript/angular";
+import { nestjs } from "./javascript/nestjs";
 
 
 export interface CheatSheetItem {
@@ -45,8 +48,8 @@ export interface LanguageGroup {
 
 // Registry of all available libraries
 export const libraries: Record<string, LibraryCheatSheet> = {
-  pythonFundamentals, javascript, react, typescript, reactDom, electronjs,
-  numpy,
+  pythonFundamentals, javascript, react, typescript, reactDom, electronjs, nextjs,
+  angular, nestjs, numpy,
   pandas,
   matplotlib,
   seaborn,
@@ -76,7 +79,7 @@ export const languageGroups: LanguageGroup[] = [
   {
     label: "JavaScript",
     icon: "💻",
-    libraries: ["javascript", "react", "typescript", "reactDom", "electronjs"],
+    libraries: ["javascript", "react", "typescript", "reactDom", "electronjs", "nextjs", "angular", "nestjs"],
   },
   {
     label: "Tools",
@@ -103,5 +106,5 @@ export const importDetectionMap: Record<string, string> = {
 };
 
 export { pythonFundamentals, numpy, pandas, matplotlib, seaborn, sklearn, html, css, tailwind, git, docker, cmdw,
-  macos, linux, javascript, react, typescript, reactDom, electronjs,
+  macos, linux, javascript, react, typescript, reactDom, electronjs, nextjs, angular, nestjs,
  };
