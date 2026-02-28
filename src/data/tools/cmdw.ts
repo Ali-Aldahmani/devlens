@@ -1,6 +1,7 @@
 export const cmdw = {
   name: "Command-line Windows",
   import: "/* Command-line Windows */",
+  insertTarget: "terminal" as const,
   categories: [
     {
       title: "Working with files",

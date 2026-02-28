@@ -24,6 +24,8 @@ export interface CheatSheetCategory {
 export interface LibraryCheatSheet {
   name: string;
   import: string;
+  install?: string;
+  insertTarget?: "editor" | "terminal"; 
   categories: CheatSheetCategory[];
 }
 

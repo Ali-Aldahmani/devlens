@@ -1,6 +1,7 @@
 export const numpy = {
   name: "NumPy",
   import: "import numpy as np",
+  install: "pip install numpy",
   categories: [
     {
       title: "Array Creation",

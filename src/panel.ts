@@ -62,6 +62,9 @@ export class CheatSheetPanel {
             vscode.env.clipboard.writeText(message.snippet);
             vscode.window.showInformationMessage("Snippet copied to clipboard!");
             break;
+          case "insertInTerminal":
+            this._insertInTerminal(message.snippet, message.execute ?? false);
+            break;
         }
       },
       null,
@@ -108,6 +111,15 @@ export class CheatSheetPanel {
     }).then(() => {
       vscode.window.showTextDocument(editor.document, editor.viewColumn, false);
     });
+  }
+
+  private _insertInTerminal(snippet: string, execute: boolean = false) {
+    let terminal = vscode.window.activeTerminal;
+    if (!terminal) {
+      terminal = vscode.window.createTerminal("DevLens");
+    }
+    terminal.show(true);
+    terminal.sendText(snippet, execute);
   }
 
   private _update() {
@@ -442,6 +454,41 @@ export class CheatSheetPanel {
     flex-shrink: 0;
   }
 
+  .install-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  background: #0d1a2e;
+  border: 1px solid #1a2a4a;
+  border-radius: var(--radius);
+  margin-top: 6px;
+}
+
+.install-line code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent2); /* blue instead of green to distinguish from import */
+  flex: 1;
+}
+
+.install-btn {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: #1a3a6a;
+  border: 1px solid var(--accent2);
+  border-radius: 4px;
+  padding: 2px 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.install-btn:hover { background: var(--accent2); color: var(--bg); }
   .copy-import:hover { color: var(--accent); border-color: var(--accent); }
 
   /* ─── SEARCH ──────────────────────────────────── */
@@ -863,6 +910,11 @@ export class CheatSheetPanel {
     <code id="importLine"></code>
     <button class="copy-import" onclick="copyImport()">copy</button>
   </div>
+
+  <div class="install-line" id="installLine" style="display:none">
+  <code id="installCmd"></code>
+  <button class="install-btn" onclick="runInstall()">▶ Install in Terminal</button>
+</div>
 </div>
 
 <!-- ─── SEARCH ──────────────────────────────────── -->
@@ -929,6 +981,7 @@ export class CheatSheetPanel {
     renderTabs();
     renderContent();
     updateImportLine();
+    updateInstallLine();
   }
 
   // ─── Language Picker Dropdown ────────────────────────
@@ -1048,6 +1101,7 @@ export class CheatSheetPanel {
     renderTabs();
     renderContent();
     updateImportLine();
+    updateInstallLine()
     vscode.postMessage({ command: "switchLibrary", library: key });
   }
 
@@ -1086,6 +1140,7 @@ export class CheatSheetPanel {
     renderTabs();
     renderContent();
     updateImportLine();
+    updateInstallLine()
     vscode.postMessage({ command: "switchLibrary", library: key });
   }
 
@@ -1093,6 +1148,30 @@ export class CheatSheetPanel {
   function updateImportLine() {
     document.getElementById("importLine").textContent = libraries[currentLib].import;
   }
+
+  function updateInstallLine() {
+  const lib = libraries[currentLib];
+  const installLine = document.getElementById("installLine");
+  const installCmd = document.getElementById("installCmd");
+
+  if (lib.install) {
+    installCmd.textContent = lib.install;
+    installLine.style.display = "flex";
+  } else {
+    installLine.style.display = "none"; // hide for Web/Tools libs
+  }
+}
+
+function getInsertTarget() {
+  return libraries[currentLib].insertTarget || "editor";
+}
+
+function runInstall() {
+  const lib = libraries[currentLib];
+  if (lib.install) {
+    vscode.postMessage({ command: "insertInTerminal", snippet: lib.install, execute: true });
+  }
+}
 
   function copyImport() {
     vscode.postMessage({ command: "copySnippet", snippet: libraries[currentLib].import });
@@ -1190,6 +1269,9 @@ export class CheatSheetPanel {
   function renderCards() {
     const items = getFilteredItems();
     const container = document.getElementById("snippetList");
+    const isTerminal = getInsertTarget() === "terminal";
+    const insertLabel = isTerminal ? "⌨ Send to Terminal" : "⌨ Insert";
+
     document.getElementById("countLabel").textContent = \`\${items.length} snippet\${items.length !== 1 ? "s" : ""}\`;
 
     if (items.length === 0) {
@@ -1207,7 +1289,7 @@ export class CheatSheetPanel {
         <div class="snippet-desc">\${escapeHtml(item.desc)}</div>
         <div class="snippet-code">\${highlight(escapeHtml(item.snippet))}</div>
         <div class="snippet-actions">
-          <button class="snippet-btn insert" onclick="insertSnippet(\${i})">⌨ Insert</button>
+          <button class="snippet-btn insert" onclick="insertSnippet(\${i})">\${getInsertTarget() === 'terminal' ? '⌨ Send to Terminal' : '⌨ Insert'}</button>
           <button class="snippet-btn copy"   onclick="copySnippet(\${i})">⎘ Copy</button>
         </div>
       </div>
@@ -1276,19 +1358,18 @@ export class CheatSheetPanel {
     });
   }
 
-  function insertSnippetMd(idx) {
-    const item = window._mdItems?.[idx];
-    if (item) vscode.postMessage({ command: "insertSnippet", snippet: item.snippet });
-  }
-
-  function copySnippetMd(idx) {
-    const item = window._mdItems?.[idx];
-    if (item) vscode.postMessage({ command: "copySnippet", snippet: item.snippet });
-  }
-
   function insertSnippet(index) {
-    vscode.postMessage({ command: "insertSnippet", snippet: window._items[index].snippet });
-  }
+  const snippet = window._items[index].snippet;
+  const cmd = getInsertTarget() === "terminal" ? "insertInTerminal" : "insertSnippet";
+  vscode.postMessage({ command: cmd, snippet, execute: false });
+}
+
+function insertSnippetMd(idx) {
+  const item = window._mdItems?.[idx];
+  if (!item) return;
+  const cmd = getInsertTarget() === "terminal" ? "insertInTerminal" : "insertSnippet";
+  vscode.postMessage({ command: cmd, snippet: item.snippet, execute: false });
+}
 
   function copySnippet(index) {
     vscode.postMessage({ command: "copySnippet", snippet: window._items[index].snippet });
@@ -1322,6 +1403,7 @@ export class CheatSheetPanel {
       renderTabs();
       renderContent();
       updateImportLine();
+      updateInstallLine();
     }
   });
 
