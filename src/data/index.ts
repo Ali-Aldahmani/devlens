@@ -6,6 +6,10 @@ import { sklearn } from "./python/sklearn";
 import { html } from "./webdev/html";
 import { css } from "./webdev/css";
 import { tailwind } from "./webdev/tailwind";
+import { git } from "./tools/git";
+import { docker } from "./tools/docker";
+import { cmdw } from "./tools/cmdw";
+
 
 export interface CheatSheetItem {
   snippet: string;
@@ -39,6 +43,9 @@ export const libraries: Record<string, LibraryCheatSheet> = {
   html,
   css,
   tailwind,
+  git,
+  docker,
+  cmdw,
 };
 
 // Language groups — controls top-level tab UI
@@ -52,6 +59,11 @@ export const languageGroups: LanguageGroup[] = [
     label: "Web Dev",
     icon: "🌐",
     libraries: ["html", "css", "tailwind"],
+  },
+  {
+    label: "Tools",
+    icon: "🧰",
+    libraries: ["git", "docker", "cmdw"],
   },
 ];
 
@@ -72,4 +84,4 @@ export const importDetectionMap: Record<string, string> = {
   // Web Dev (HTML/CSS auto-detected by file extension in extension.ts)
 };
 
-export { numpy, pandas, matplotlib, seaborn, sklearn, html, css, tailwind };
+export { numpy, pandas, matplotlib, seaborn, sklearn, html, css, tailwind, git, docker, cmdw };

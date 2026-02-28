@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.tailwind = exports.css = exports.html = exports.sklearn = exports.seaborn = exports.matplotlib = exports.pandas = exports.numpy = exports.importDetectionMap = exports.languageGroups = exports.libraries = void 0;
+exports.cmdw = exports.docker = exports.git = exports.tailwind = exports.css = exports.html = exports.sklearn = exports.seaborn = exports.matplotlib = exports.pandas = exports.numpy = exports.importDetectionMap = exports.languageGroups = exports.libraries = void 0;
 const numpy_1 = require("./python/numpy");
 Object.defineProperty(exports, "numpy", { enumerable: true, get: function () { return numpy_1.numpy; } });
 const pandas_1 = require("./python/pandas");
@@ -17,6 +17,12 @@ const css_1 = require("./webdev/css");
 Object.defineProperty(exports, "css", { enumerable: true, get: function () { return css_1.css; } });
 const tailwind_1 = require("./webdev/tailwind");
 Object.defineProperty(exports, "tailwind", { enumerable: true, get: function () { return tailwind_1.tailwind; } });
+const git_1 = require("./tools/git");
+Object.defineProperty(exports, "git", { enumerable: true, get: function () { return git_1.git; } });
+const docker_1 = require("./tools/docker");
+Object.defineProperty(exports, "docker", { enumerable: true, get: function () { return docker_1.docker; } });
+const cmdw_1 = require("./tools/cmdw");
+Object.defineProperty(exports, "cmdw", { enumerable: true, get: function () { return cmdw_1.cmdw; } });
 // Registry of all available libraries
 exports.libraries = {
     numpy: numpy_1.numpy,
@@ -27,6 +33,9 @@ exports.libraries = {
     html: html_1.html,
     css: css_1.css,
     tailwind: tailwind_1.tailwind,
+    git: git_1.git,
+    docker: docker_1.docker,
+    cmdw: cmdw_1.cmdw,
 };
 // Language groups — controls top-level tab UI
 exports.languageGroups = [
@@ -39,6 +48,11 @@ exports.languageGroups = [
         label: "Web Dev",
         icon: "🌐",
         libraries: ["html", "css", "tailwind"],
+    },
+    {
+        label: "Tools",
+        icon: "🧰",
+        libraries: ["git", "docker", "cmdw"],
     },
 ];
 // Maps import strings found in source files → library keys
