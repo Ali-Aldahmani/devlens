@@ -1,6 +1,7 @@
 export const git = {
   name: "Git",
   import: "/* Git Command */",
+  insertTarget: "terminal" as const,
   categories: [
     {
       title: "SETUP",

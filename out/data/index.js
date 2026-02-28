@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cmdw = exports.docker = exports.git = exports.tailwind = exports.css = exports.html = exports.sklearn = exports.seaborn = exports.matplotlib = exports.pandas = exports.numpy = exports.importDetectionMap = exports.languageGroups = exports.libraries = void 0;
+exports.linux = exports.macos = exports.cmdw = exports.docker = exports.git = exports.tailwind = exports.css = exports.html = exports.sklearn = exports.seaborn = exports.matplotlib = exports.pandas = exports.numpy = exports.importDetectionMap = exports.languageGroups = exports.libraries = void 0;
 const numpy_1 = require("./python/numpy");
 Object.defineProperty(exports, "numpy", { enumerable: true, get: function () { return numpy_1.numpy; } });
 const pandas_1 = require("./python/pandas");
@@ -23,6 +23,10 @@ const docker_1 = require("./tools/docker");
 Object.defineProperty(exports, "docker", { enumerable: true, get: function () { return docker_1.docker; } });
 const cmdw_1 = require("./tools/cmdw");
 Object.defineProperty(exports, "cmdw", { enumerable: true, get: function () { return cmdw_1.cmdw; } });
+const macos_1 = require("./tools/macos");
+Object.defineProperty(exports, "macos", { enumerable: true, get: function () { return macos_1.macos; } });
+const linux_1 = require("./tools/linux");
+Object.defineProperty(exports, "linux", { enumerable: true, get: function () { return linux_1.linux; } });
 // Registry of all available libraries
 exports.libraries = {
     numpy: numpy_1.numpy,
@@ -36,6 +40,8 @@ exports.libraries = {
     git: git_1.git,
     docker: docker_1.docker,
     cmdw: cmdw_1.cmdw,
+    macos: macos_1.macos,
+    linux: linux_1.linux,
 };
 // Language groups — controls top-level tab UI
 exports.languageGroups = [
@@ -52,7 +58,7 @@ exports.languageGroups = [
     {
         label: "Tools",
         icon: "🧰",
-        libraries: ["git", "docker", "cmdw"],
+        libraries: ["git", "docker", "cmdw", "macos"],
     },
 ];
 // Maps import strings found in source files → library keys

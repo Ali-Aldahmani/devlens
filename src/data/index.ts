@@ -9,6 +9,8 @@ import { tailwind } from "./webdev/tailwind";
 import { git } from "./tools/git";
 import { docker } from "./tools/docker";
 import { cmdw } from "./tools/cmdw";
+import { macos } from "./tools/macos";
+import { linux } from "./tools/linux";
 
 
 export interface CheatSheetItem {
@@ -48,6 +50,8 @@ export const libraries: Record<string, LibraryCheatSheet> = {
   git,
   docker,
   cmdw,
+  macos,
+  linux,
 };
 
 // Language groups — controls top-level tab UI
@@ -65,7 +69,7 @@ export const languageGroups: LanguageGroup[] = [
   {
     label: "Tools",
     icon: "🧰",
-    libraries: ["git", "docker", "cmdw"],
+    libraries: ["git", "docker", "cmdw", "macos"],
   },
 ];
 
@@ -86,4 +90,6 @@ export const importDetectionMap: Record<string, string> = {
   // Web Dev (HTML/CSS auto-detected by file extension in extension.ts)
 };
 
-export { numpy, pandas, matplotlib, seaborn, sklearn, html, css, tailwind, git, docker, cmdw };
+export { numpy, pandas, matplotlib, seaborn, sklearn, html, css, tailwind, git, docker, cmdw,
+  macos, linux,
+ };

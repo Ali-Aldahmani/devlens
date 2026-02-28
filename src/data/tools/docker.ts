@@ -1,6 +1,7 @@
 export const docker = {
   name: "Docker",
   import: "/* Docker Command */",
+  insertTarget: "terminal" as const,
   categories: [
     {
       title: "Build",
@@ -57,97 +58,87 @@ export const docker = {
         { snippet: "docker run --name <container_name> <image_name>", desc: "Assign a custom name to the container." },
       ],
     },
+    {
+      title: "Registry",
+      items: [
+        { snippet: "docker login", desc: "Log in to a Docker registry." },
+        { snippet: "docker logout", desc: "Log out from a Docker registry." },
+        { snippet: "docker search <term>", desc: "Search for Docker images in a Docker registry." },
+        { snippet: "docker pull <registry>/<image_name>", desc: "Pull a Docker image from a specific registry." },
+      ],
+    },
+    {
+      title: "Service",
+      items: [
+        { snippet: "docker service create --name <service_name> <image_name>", desc: "Create a Docker service from an image." },
+        { snippet: "docker service ls", desc: "List running Docker services." },
+        { snippet: "docker service scale <service_name>=<replicas>", desc: "Scale the replicas of a Docker service." },
+        { snippet: "docker service logs <service_name>", desc: "View logs of a Docker service." },
+      ],
+    },
+    {
+      title: "Network",
+      items: [
+        { snippet: "docker network create <network_name>", desc: "Create a Docker network." },
+        { snippet: "docker network ls", desc: "List available Docker networks." },
+        { snippet: "docker network inspect <network_name>", desc: "Inspect detailed information about a Docker network." },
+        { snippet: "docker network connect <network_name> <container_name>", desc: "Connect a container to a Docker network." },
+      ],
+    },
+    {
+      title: "Volume",
+      items: [
+        { snippet: "docker volume create <volume_name>", desc: "Create a Docker volume." },
+        { snippet: "docker volume ls", desc: "List available Docker volumes." },
+        { snippet: "docker volume inspect <volume_name>", desc: "Inspect detailed information about a Docker volume." },
+        { snippet: "docker volume rm <volume_name>", desc: "Remove a Docker volume." },
+      ],
+    },
+    {
+      title: "Swarm",
+      items: [
+        { snippet: "docker swarm init", desc: "Initialize a Docker swarm on the current node." },
+        { snippet: "docker swarm join", desc: "Join a Docker swarm as a worker node." },
+        { snippet: "docker node ls", desc: "List the nodes in a Docker swarm." },
+        { snippet: "docker service create", desc: "Create a service in the Docker swarm." },
+        { snippet: "docker service scale", desc: "Scale the replicas of a service in the Docker swarm." },
+      ],
+    },
+    {
+      title: "Filesystem",
+      items: [
+        { snippet: "docker cp <container_id>:<container_path> <host_path>", desc: "Copy files from a container to the host." },
+        { snippet: "docker cp <host_path> <container_id>:<container_path>", desc: "Copy files from the host to a container." },
+      ],
+    },
+    {
+      title: "Environment Variables",
+      items: [
+        { snippet: "docker run -e <variable_name>=<value> <image_name>", desc: "Set an environment variable when running a container." },
+      ],
+    },
+    {
+      title: "Health Checks",
+      items: [
+        { snippet: "HEALTHCHECK", desc: "Define a command in the Dockerfile to check the health of a container." },
+        { snippet: "docker container inspect --format='{{json .State.Health}}' <container_name>", desc: "Check the health status of a container." },
+      ],
+    },
+    {
+      title: "Docker Compose",
+      items: [
+        { snippet: "docker-compose up", desc: "Create and start containers defined in a Docker Compose file." },
+        { snippet: "docker-compose down", desc: "Stop and remove containers defined in a Docker Compose file." },
+        { snippet: "docker-compose ps", desc: "List containers defined in a Docker Compose file." },
+        { snippet: "docker-compose logs", desc: "View logs of containers defined in a Docker Compose file." },
+      ],
+    },
+    {
+      title: "Stats",
+      items: [
+        { snippet: "docker stats", desc: "Display a live stream of resource usage by containers." },
+        { snippet: "docker stats <container_name>", desc: "Display the resource usage of a specific container." },
+      ],
+    },
   ],
 };
-
-/* 
-
-I'll add this soon
-
-Docker Registry Commands:
-
-docker login: Log in to a Docker registry.
-
-docker logout: Log out from a Docker registry.
-
-docker search <term>: Search for Docker images in a Docker registry.
-
-docker pull <registry>/<image_name>: Pull a Docker image from a specific registry.
-
-Docker Service Commands:
-
-docker service create --name <service_name> <image_name>: Create a Docker service from an image.
-
-docker service ls: List running Docker services.
-
-docker service scale <service_name>=<replicas>: Scale the replicas of a Docker service.
-
-docker service logs <service_name>: View logs of a Docker service.
-
-Docker Network Commands:
-
-docker network create <network_name>: Create a Docker network.
-
-docker network ls: List available Docker networks.
-
-docker network inspect <network_name>: Inspect detailed information about a Docker network.
-
-docker network connect <network_name> <container_name>: Connect a container to a Docker network
-
-Docker Volume Commands:
-
-docker volume create <volume_name>: Create a Docker volume.
-
-docker volume ls: List available Docker volumes.
-
-docker volume inspect <volume_name>: Inspect detailed information about a Docker volume.
-
-docker volume rm <volume_name>: Remove a Docker volume.
-
-Docker Swarm Commands:
-
-docker swarm init: Initialize a Docker swarm on the current node.
-
-docker swarm join: Join a Docker swarm as a worker node.
-
-docker node ls: List the nodes in a Docker swarm.
-
-docker service create: Create a service in the Docker swarm.
-
-docker service scale: Scale the replicas of a service in the Docker swarm.
-
-Docker Filesystem Commands:
-
-docker cp <container_id>:<container_path> <host_path>: Copy files from a container to the host.
-
-docker cp <host_path> <container_id>:<container_path>: Copy files from the host to a container.
-
-Docker Environment Variables:
-
--e or --env: Set environment variables when running a container.
-
-docker run -e <variable_name>=<value> <image_name>: Set an environment variable when running a container.
-
-Docker Health Checks:
-
-HEALTHCHECK instruction: Define a command to check the health of a container.
-
-docker container inspect --format='{{json .State.Health}}' <container_name>: Check the health status of a container.
-
-Docker Compose Commands:
-
-docker-compose up: Create and start containers defined in a Docker Compose file.
-
-docker-compose down: Stop and remove containers defined in a Docker Compose file.
-
-docker-compose ps: List containers defined in a Docker Compose file.
-
-docker-compose logs: View logs of containers defined in a Docker Compose file.
-
-Docker Stats:
-
-docker stats: Display a live stream of resource usage by containers.
-
-docker stats <container_name>: Display the resource usage of a specific container.
-
-*/
