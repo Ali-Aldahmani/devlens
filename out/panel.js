@@ -856,6 +856,60 @@ class CheatSheetPanel {
     border-radius: 2px;
     padding: 0 1px;
   }
+
+  /* ─── FAVORITES ───────────────────────────────── */
+  .fav-btn {
+    font-size: 14px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .fav-btn:hover { color: var(--warn); border-color: var(--warn); background: #1a1200; }
+  .fav-btn.active { color: var(--warn); border-color: #3a2a00; background: #1a1200; }
+
+  .md-btn.fav { color: var(--muted); border-color: var(--border); background: transparent; }
+  .md-btn.fav:hover { color: var(--warn); border-color: var(--warn); background: #1a1200; }
+  .md-btn.fav.active { color: var(--warn); border-color: #3a2a00; background: #1a1200; }
+
+  .favs-view {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+    display: none;
+  }
+
+  .favs-view.visible { display: block; }
+  .favs-view::-webkit-scrollbar { width: 4px; }
+  .favs-view::-webkit-scrollbar-track { background: transparent; }
+  .favs-view::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .fav-group-title {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--warn);
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+    margin-top: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .fav-group-title:first-child { margin-top: 0; }
 </style>
 </head>
 <body>
@@ -894,6 +948,9 @@ class CheatSheetPanel {
       </button>
       <button class="view-btn" id="viewMarkdown" onclick="setViewMode('markdown')" title="Markdown reference view">
         ⊞ Markdown
+      </button>
+      <button class="view-btn" id="viewFavs" onclick="setViewMode('favs')" title="Favorites">
+        ★ Favs
       </button>
     </div>
   </div>
@@ -936,6 +993,9 @@ class CheatSheetPanel {
 <!-- ─── MARKDOWN VIEW ───────────────────────────── -->
 <div class="markdown-view" id="markdownView"></div>
 
+<!-- ─── FAVORITES VIEW ──────────────────────────── -->
+<div class="favs-view" id="favsView"></div>
+
 <!-- ─── STATUS BAR ──────────────────────────────── -->
 <div class="statusbar">
   <span id="countLabel">0 snippets</span>
@@ -956,7 +1016,8 @@ class CheatSheetPanel {
   let currentCategory = "all";
   let currentLangGroup = null;
   let searchQuery = "";
-  let viewMode = "cards"; // "cards" | "markdown"
+  let viewMode = "cards"; // "cards" | "markdown" | "favs"
+  let favorites = []; // { libKey, snippet, desc, category }
 
   // Determine initial lang group from currentLib
   function initLangGroup() {
@@ -971,6 +1032,7 @@ class CheatSheetPanel {
 
   // ─── Init ────────────────────────────────────────────
   function init() {
+    loadFavorites();
     initLangGroup();
     updateTriggerLabel();
     renderLibPills();
@@ -1175,9 +1237,9 @@ function runInstall() {
 
   // ─── Tabs ────────────────────────────────────────────
   function renderTabs() {
-    // Hide tabs in markdown mode (we show categories inline)
+    // Hide tabs in markdown and favs mode
     const tabsWrap = document.getElementById("tabsWrap");
-    if (viewMode === "markdown") {
+    if (viewMode === "markdown" || viewMode === "favs") {
       tabsWrap.style.display = "none";
       return;
     }
@@ -1207,21 +1269,19 @@ function runInstall() {
     viewMode = mode;
     document.getElementById("viewCards").classList.toggle("active", mode === "cards");
     document.getElementById("viewMarkdown").classList.toggle("active", mode === "markdown");
+    document.getElementById("viewFavs").classList.toggle("active", mode === "favs");
     renderTabs();
     renderContent();
   }
 
   // ─── Render dispatcher ───────────────────────────────
   function renderContent() {
-    if (viewMode === "cards") {
-      document.getElementById("snippetList").classList.add("visible");
-      document.getElementById("markdownView").classList.remove("visible");
-      renderCards();
-    } else {
-      document.getElementById("snippetList").classList.remove("visible");
-      document.getElementById("markdownView").classList.add("visible");
-      renderMarkdown();
-    }
+    document.getElementById("snippetList").classList.toggle("visible", viewMode === "cards");
+    document.getElementById("markdownView").classList.toggle("visible", viewMode === "markdown");
+    document.getElementById("favsView").classList.toggle("visible", viewMode === "favs");
+    if (viewMode === "cards") renderCards();
+    else if (viewMode === "markdown") renderMarkdown();
+    else renderFavoritesView();
   }
 
   // ─── Filtered items ──────────────────────────────────
@@ -1287,6 +1347,7 @@ function runInstall() {
         <div class="snippet-actions">
           <button class="snippet-btn insert" onclick="insertSnippet(\${i})">\${getInsertTarget() === 'terminal' ? '⌨ Send to Terminal' : '⌨ Insert'}</button>
           <button class="snippet-btn copy"   onclick="copySnippet(\${i})">⎘ Copy</button>
+          <button class="fav-btn \${isFavorite(currentLib, item) ? 'active' : ''}" onclick="toggleFavorite(currentLib, \${i})" title="\${isFavorite(currentLib, item) ? 'Remove from favorites' : 'Add to favorites'}">★</button>
         </div>
       </div>
     \`).join("");
@@ -1332,6 +1393,7 @@ function runInstall() {
               <div class="md-item-actions">
                 <button class="md-btn insert" onclick="insertSnippetMd('\${globalIdx}')">⌨ Insert</button>
                 <button class="md-btn copy"   onclick="copySnippetMd('\${globalIdx}')">⎘ Copy</button>
+                <button class="md-btn fav \${isFavorite(currentLib, item) ? 'active' : ''}" onclick="toggleFavoriteMd('\${globalIdx}')" title="\${isFavorite(currentLib, item) ? 'Remove from favorites' : 'Add to favorites'}">★</button>
               </div>
             </div>
           \`;
@@ -1367,8 +1429,151 @@ function insertSnippetMd(idx) {
   vscode.postMessage({ command: cmd, snippet: item.snippet, execute: false });
 }
 
+function copySnippetMd(idx) {
+  const item = window._mdItems?.[idx];
+  if (!item) return;
+  vscode.postMessage({ command: "copySnippet", snippet: item.snippet });
+}
+
   function copySnippet(index) {
     vscode.postMessage({ command: "copySnippet", snippet: window._items[index].snippet });
+  }
+
+  // ─── Favorites ───────────────────────────────────────
+  function loadFavorites() {
+    try {
+      const stored = localStorage.getItem("devlens_favorites");
+      favorites = stored ? JSON.parse(stored) : [];
+    } catch (e) { favorites = []; }
+  }
+
+  function saveFavorites() {
+    localStorage.setItem("devlens_favorites", JSON.stringify(favorites));
+  }
+
+  function favKey(libKey, snippet) {
+    return libKey + "||" + snippet;
+  }
+
+  function isFavorite(libKey, item) {
+    const key = favKey(libKey, item.snippet);
+    return favorites.some(f => favKey(f.libKey, f.snippet) === key);
+  }
+
+  function toggleFavorite(libKey, index) {
+    const item = window._items[index];
+    if (!item) return;
+    const key = favKey(libKey, item.snippet);
+    const idx = favorites.findIndex(f => favKey(f.libKey, f.snippet) === key);
+    if (idx !== -1) {
+      favorites.splice(idx, 1);
+    } else {
+      favorites.push({ libKey, snippet: item.snippet, desc: item.desc, category: item.category || "" });
+    }
+    saveFavorites();
+    renderContent();
+  }
+
+  function toggleFavoriteMd(globalIdx) {
+    const item = window._mdItems?.[globalIdx];
+    if (!item) return;
+    const key = favKey(currentLib, item.snippet);
+    const idx = favorites.findIndex(f => favKey(f.libKey, f.snippet) === key);
+    if (idx !== -1) {
+      favorites.splice(idx, 1);
+    } else {
+      favorites.push({ libKey: currentLib, snippet: item.snippet, desc: item.desc, category: item.category || "" });
+    }
+    saveFavorites();
+    renderContent();
+  }
+
+  function toggleFavoriteFav(favIndex) {
+    favorites.splice(favIndex, 1);
+    saveFavorites();
+    renderFavoritesView();
+  }
+
+  function insertFavSnippet(favIndex) {
+    const item = favorites[favIndex];
+    if (!item) return;
+    const isTerminal = libraries[item.libKey]?.insertTarget === "terminal";
+    const cmd = isTerminal ? "insertInTerminal" : "insertSnippet";
+    vscode.postMessage({ command: cmd, snippet: item.snippet, execute: false });
+  }
+
+  function copyFavSnippet(favIndex) {
+    const item = favorites[favIndex];
+    if (!item) return;
+    vscode.postMessage({ command: "copySnippet", snippet: item.snippet });
+  }
+
+  function renderFavoritesView() {
+    const container = document.getElementById("favsView");
+
+    let filtered = favorites;
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      filtered = favorites.filter(f =>
+        f.snippet.toLowerCase().includes(q) ||
+        f.desc.toLowerCase().includes(q)
+      );
+    }
+
+    document.getElementById("countLabel").textContent =
+      \`\${filtered.length} favorite\${filtered.length !== 1 ? "s" : ""}\`;
+
+    if (favorites.length === 0) {
+      container.innerHTML = \`
+        <div class="empty">
+          <div class="empty-icon">★</div>
+          No favorites yet.
+          <br/>
+          <span style="font-size:11px;font-weight:400;opacity:0.7">Click ★ on any snippet to save it here.</span>
+        </div>
+      \`;
+      return;
+    }
+
+    if (filtered.length === 0) {
+      container.innerHTML = \`
+        <div class="empty">
+          <div class="empty-icon">⚗️</div>
+          No favorites match "<strong>\${escapeHtml(searchQuery)}</strong>"
+        </div>
+      \`;
+      return;
+    }
+
+    // Group by library
+    const groups = {};
+    filtered.forEach(fav => {
+      const origIdx = favorites.indexOf(fav);
+      if (!groups[fav.libKey]) groups[fav.libKey] = [];
+      groups[fav.libKey].push({ ...fav, favIndex: origIdx });
+    });
+
+    let html = "";
+    Object.entries(groups).forEach(([libKey, items]) => {
+      const libName = libraries[libKey]?.name || libKey;
+      const isTerminal = libraries[libKey]?.insertTarget === "terminal";
+      html += \`<div class="fav-group-title">\${escapeHtml(libName)}</div>\`;
+      items.forEach((item, i) => {
+        html += \`
+          <div class="snippet-card" style="animation-delay:\${Math.min(i * 0.02, 0.3)}s">
+            <div class="snippet-desc">\${escapeHtml(item.desc)}</div>
+            <div class="snippet-code">\${escapeHtml(item.snippet)}</div>
+            <div class="snippet-actions">
+              <button class="snippet-btn insert" onclick="insertFavSnippet(\${item.favIndex})">\${isTerminal ? '⌨ Send to Terminal' : '⌨ Insert'}</button>
+              <button class="snippet-btn copy"   onclick="copyFavSnippet(\${item.favIndex})">⎘ Copy</button>
+              <button class="fav-btn active" onclick="toggleFavoriteFav(\${item.favIndex})" title="Remove from favorites">★</button>
+            </div>
+          </div>
+        \`;
+      });
+    });
+
+    container.innerHTML = html;
   }
 
   // ─── Search ──────────────────────────────────────────
