@@ -6,7 +6,7 @@
 
 <p><strong>Instant, searchable cheat sheets for every language — right inside VS Code.</strong></p>
 
-[![Version](https://img.shields.io/badge/version-0.4.0-5dffb0?style=for-the-badge&labelColor=0d0f14)](#)
+[![Version](https://img.shields.io/badge/version-0.4.1-5dffb0?style=for-the-badge&labelColor=0d0f14)](#)
 [![VS Code](https://img.shields.io/badge/VS%20Code-^1.80.0-4d8cff?style=for-the-badge&logo=visualstudiocode&logoColor=white&labelColor=0d0f14)](https://marketplace.visualstudio.com)
 [![License](https://img.shields.io/badge/license-MIT-ff5d87?style=for-the-badge&labelColor=0d0f14)](#license)
 [![Open Source](https://img.shields.io/badge/open%20source-❤-5dffb0?style=for-the-badge&labelColor=0d0f14)](#contributing)
@@ -24,311 +24,209 @@
 
 ## What is DevLens?
 
-Stop alt-tabbing to docs. DevLens opens a **smart cheat sheet panel beside your code** with 400+ ready-to-use snippets across Python, HTML, CSS, Tailwind, Git, Docker, CMD, and more.
+Stop alt-tabbing to docs.
+
+DevLens opens a **smart cheat sheet panel beside your code** with 700+ ready-to-use snippets across Python, JavaScript, modern frameworks, Web Dev, DevOps, and system tools.
 
 It **auto-detects** which library you're using from your imports, switches instantly, and lets you insert any snippet directly at your cursor or terminal with one click — no copy-pasting, no context switching.
 
-> Think of it as having a senior dev sitting next to you who just knows every API off the top of their head.
+> Think of it as having a senior developer sitting next to you who remembers every API instantly.
 
 ---
 
-## Features
-
-<table>
-<tr>
-<td width="50%">
+# ✨ Core Features
 
 ### 🔍 Auto-Detection
-DevLens reads your imports and **automatically switches** to the right cheat sheet the moment you open a file. Open a file with `import pandas` and it's already showing Pandas snippets.
-
-</td>
-<td width="50%">
+Reads your imports and automatically switches to the correct library.
 
 ### ⌨️ One-Click Insert
-Every snippet has an **Insert** button. The code lands exactly at your cursor — formatted, ready to run. No switching windows, no clipboard juggling.
+Insert any snippet directly at your cursor — formatted and ready.
 
-</td>
-</tr>
-<tr>
-<td width="50%">
+### 🖥 Insert in Terminal
+Send commands instantly to your active VS Code terminal.
 
-### 🖥️ Insert in Terminal
-Every snippet also has a **Terminal** button. Click it and the command is sent directly to your active VS Code terminal — perfect for Git, Docker, and shell commands.
+### ⭐ Favorites Panel
+Star snippets and persist them across sessions.
 
-</td>
-<td width="50%">
+### ⚙️ Insert Behavior Settings
+Choose:
+- Insert on same line
+- Insert on new line
 
-### ★ Favorites
-Star any snippet to save it to your **Favorites panel**. Your favorites are persisted across sessions — pin the commands you reach for every day for instant access.
+### 🌐 Multi-Language Picker
+Search and switch between ecosystems instantly.
 
-</td>
-</tr>
-<tr>
-<td width="50%">
-
-### ⚙️ Insert Settings
-Choose how the Insert button behaves via the **Settings panel**: place snippets on the **same line** at your cursor, or always on a **new line** below the current one.
-
-</td>
-<td width="50%">
-
-### 🌐 Multi-Language Support
-Switch between **Python**, **Web Dev**, **DevOps**, and more from a searchable language picker. Find any language or library in under a second — just start typing.
-
-</td>
-</tr>
-<tr>
-<td width="50%">
-
-### ⊞ Markdown View
-Toggle between **Cards** and **Markdown** mode. Markdown mode renders all snippets as a clean inline reference doc — great for browsing an entire library at a glance.
-
-</td>
-<td width="50%">
+### ⊞ Markdown Reference Mode
+Toggle between Card View and clean documentation mode.
 
 ### 🔎 Instant Search
-Filter snippets in real time. Search by function name, description, or keyword — across the entire library. Results update as you type.
+Filter by function name, keyword, or description in real time.
 
-</td>
-</tr>
-<tr>
-<td width="50%">
-
-### 🗂️ Category Tabs
-Every library is organized into topics — Array Creation, Data Cleaning, Flexbox, Model Evaluation, and more — so you can browse without searching.
-
-</td>
-<td width="50%">
-
-</td>
-</tr>
-</table>
+### 🗂 Category Tabs
+Organized libraries for fast browsing.
 
 ---
 
-## Libraries
+# 📚 Supported Libraries (v0.4.1)
 
-### 🐍 Python
+## 🐍 Python
 
-| Library | Categories | Snippets |
-|---|---|:---:|
-| **NumPy** | Array Creation · Info · Reshaping · Math · Sorting · Linear Algebra | ~50 |
-| **Pandas** | Creating DataFrames · Exploring · Selecting · Cleaning · Transforming · Grouping · Exporting | ~55 |
-| **Matplotlib** | Basic Plots · Labels · Axes · Subplots · Styling · Saving | ~45 |
-| **Seaborn** | Distribution · Categorical · Relational · Matrix/Regression · Faceting · Themes | ~40 |
-| **Scikit-learn** | Preprocessing · Train/Test · Classification · Regression · Clustering · Evaluation · CV/Tuning · Pipelines | ~45 |
-
-### 🌐 Web Dev
-
-| Library | Categories | Snippets |
-|---|---|:---:|
-| **HTML** | Structure · Semantic Layout · Text · Links & Media · Forms · ARIA | ~50 |
-| **CSS** | Selectors · Box Model · Flexbox · Grid · Typography · Animations · Responsive | ~65 |
-| **Tailwind CSS** | Layout · Spacing · Typography · Colors · Borders · States · Patterns | ~60 |
-
-### 🛠️ DevOps & Tools
-
-| Library | Categories | Snippets |
-|---|---|:---:|
-| **Git** | Setup · Basics · Branching · Remote · Stash · History · Advanced | ~50 |
-| **Docker** | Images · Containers · Volumes · Networks · Compose · System | ~45 |
-| **CMD (Windows)** | Navigation · Files · Network · System · Processes | ~35 |
-
-**Total: 400+ snippets across 11 libraries — more coming soon!**
+- Python Fundamentals
+- NumPy
+- Pandas
+- Matplotlib
+- Seaborn
+- Scikit-learn
 
 ---
 
-## Keyboard Shortcut
+## 🟨 JavaScript Ecosystem
+
+- JavaScript
+- TypeScript
+- React
+- React DOM
+- Electron.js
+
+---
+
+## 🅰️ Modern Frameworks
+
+- Angular
+- Next.js
+- NestJS
+
+---
+
+## 🌐 Web Development
+
+- HTML
+- CSS
+- Tailwind CSS
+
+---
+
+## 🛠 DevOps & System Tools
+
+- Git
+- Docker
+- Windows CMD
+- macOS Terminal
+- Linux Commands
+
+---
+
+**700+ snippets across 18+ libraries — and growing.**
+
+---
+
+# ⌨ Keyboard Shortcut
 
 | OS | Shortcut |
-|:---:|:---:|
-| 🪟 Windows / Linux | `Ctrl + Ctrl + D` |
-| 🍎 macOS | `Cmd + Ctrl + D` |
+|---|---|
+| Windows / Linux | `Ctrl + Ctrl + D` |
+| macOS | `Cmd + Ctrl + D` |
 
-Or open via the **Command Palette** → `DevLens: Open DevLens`
+Or open via:
 
-Or **right-click** anywhere in a source file → **Open DevLens**
+Command Palette → `DevLens: Open DevLens`
 
 ---
 
-## Getting Started
+# 🚀 Getting Started
 
 ```bash
-# 1. Install from the VS Code Marketplace
-#    Search "DevLens" or use the button at the top of this README
+# Install from Marketplace
+# Search "DevLens"
 
-# 2. Open any Python or web file
-# 3. Press Cmd+Ctrl+D (macOS) or Ctrl+Ctrl+D (Windows/Linux)
-# 4. DevLens opens beside your code — already on the right library
+# Open any supported file
+# Use shortcut Cmd+Ctrl+D (macOS)
+# Or Ctrl+Ctrl+D (Windows/Linux)
 ```
 
+DevLens opens beside your code — already focused on the correct library.
+
 ---
 
-## Development Setup
+# 🛠 Development Setup
 
 ```bash
-# Clone the repo
 git clone https://github.com/Ali-Aldahmani/devlens.git
 cd devlens
-
-# Install dependencies
 npm install
-
-# Compile TypeScript
 npm run compile
-
-# Launch Extension Development Host
-# Open the project in VS Code, then press F5
 code .
 ```
 
-For live recompilation while developing:
+Press **F5** to launch Extension Development Host.
+
+For live rebuild:
 
 ```bash
 npm run watch
-# Then press F5 once — changes rebuild automatically
 ```
 
 ---
 
-## Contributing
-
-### Adding a New Library
-
-**1.** Create `src/data/<group>/<library>.ts`:
-
-```ts
-export const mylib = {
-  name: "MyLib",
-  import: "import mylib",
-  categories: [
-    {
-      title: "Category Name",
-      items: [
-        { snippet: "mylib.method()", desc: "What it does" },
-      ],
-    },
-  ],
-};
-```
-
-**2.** Register it in `src/data/index.ts`:
-
-```ts
-import { mylib } from "./<group>/mylib";
-
-export const libraries = {
-  // ...existing
-  mylib,
-};
-
-export const languageGroups = [
-  { label: "My Group", icon: "🔧", libraries: ["mylib"] },
-];
-
-export const importDetectionMap = {
-  // ...existing
-  "import mylib": "mylib",
-};
-```
-
-**3.** Run `npm run compile` — it appears in the panel automatically.
-
-### Adding a New Language Group
-
-In `src/data/index.ts`, add an entry to `languageGroups`:
-
-```ts
-{ label: "Backend", icon: "⚙️", libraries: ["go", "rust"] }
-```
-
-It shows up in the language picker immediately — no other changes needed.
-
-### Adding a New Command
-
-**1.** Declare it in `package.json`:
-
-```json
-{
-  "command": "devLens.myCommand",
-  "title": "DevLens: My Command"
-}
-```
-
-**2.** Handle it in `src/extension.ts`:
-
-```ts
-const myCommand = vscode.commands.registerCommand("devLens.myCommand", () => {
-  CheatSheetPanel.createOrShow(context.extensionUri, "mylib");
-});
-context.subscriptions.push(myCommand);
-```
-
----
-
-## Packaging & Publishing
+# 📦 Packaging & Publishing
 
 ```bash
-# Install the VS Code packaging tool
 npm install -g @vscode/vsce
-
-# Package locally as .vsix (for testing)
 npm run package
-
-# Publish to the Marketplace
 npm run publish
 ```
 
 ---
 
-## Roadmap
+# 🗺 Roadmap
 
-### Done
-- [x] NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn
-- [x] HTML, CSS, Tailwind CSS
-- [x] Git, Docker, CMD (Windows)
-- [x] Auto-detection from file imports
-- [x] Insert at cursor + copy to clipboard
-- [x] Insert in terminal with one click
-- [x] Snippet search and category tabs
-- [x] Multi-language picker with search
-- [x] Markdown reference view mode
-- [x] Favorites panel — pin and persist your most-used snippets
-- [x] Settings panel — choose insert position (same line or new line)
+## ✅ Completed
 
-### Upcoming
-- [ ] JavaScript & TypeScript
-- [ ] Python stdlib — `os`, `re`, `datetime`, `json`, `itertools`
-- [ ] Recently used snippets
-- [ ] User-defined custom snippet packs
-- [ ] Rust, Go
-- [ ] More languages and tools — stay tuned!
+- Python Data Stack
+- Python Fundamentals
+- Full JavaScript Ecosystem
+- Angular, Next.js, NestJS
+- Electron.js
+- Web Dev Stack
+- DevOps Commands
+- macOS + Linux Terminal Commands
+- Auto Detection
+- Favorites Panel
+- Insert Settings
+- Markdown View Mode
 
----
+## 🔜 Coming Next
 
-## Contributing Guidelines
-
-Contributions are welcome — new libraries, bug fixes, or feature ideas.
-
-1. Fork the repo
-2. Create a branch: `git checkout -b feat/my-feature`
-3. Commit your changes: `git commit -m "feat: add my feature"`
-4. Push and open a Pull Request
-
-[![Fork DevLens](https://img.shields.io/badge/🍴%20Fork%20this%20repo-0d0f14?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Ali-Aldahmani/devlens/fork)
+- Python stdlib modules (`os`, `re`, `datetime`, etc.)
+- Recently Used snippets
+- Custom user snippet packs
+- Rust
+- Go
+- More backend ecosystems
 
 ---
 
-## License
+# 🤝 Contributing
 
-MIT © [Ali Aldahmani](https://github.com/Ali-Aldahmani)
+1. Fork the repo  
+2. Create branch `feat/your-feature`  
+3. Commit changes  
+4. Open Pull Request  
+
+Contributions are welcome — libraries, bug fixes, or ideas.
+
+---
+
+# 📜 License
+
+MIT © Ali Aldahmani
 
 ---
 
 <div align="center">
 
-Built for developers who live in their editor.
+Built for developers who live inside their editor.
 
-⭐ **Star this repo if DevLens saves you time** ⭐
+⭐ Star the repo if DevLens saves you time ⭐
 
 </div>
