@@ -62,7 +62,7 @@ class CheatSheetPanel {
         this._panel.webview.onDidReceiveMessage((message) => {
             switch (message.command) {
                 case "insertSnippet":
-                    this._insertSnippet(message.snippet);
+                    this._insertSnippet(message.snippet, message.insertMode ?? "sameLine");
                     break;
                 case "switchLibrary":
                     this._currentLibrary = message.library;
@@ -97,7 +97,7 @@ class CheatSheetPanel {
             data: index_1.libraries[libraryKey],
         });
     }
-    _insertSnippet(snippet) {
+    _insertSnippet(snippet, insertMode = "sameLine") {
         const editor = (vscode.window.activeTextEditor?.document.languageId === "python"
             ? vscode.window.activeTextEditor
             : undefined) ?? this._lastPythonEditor;
@@ -106,8 +106,13 @@ class CheatSheetPanel {
             return;
         }
         editor.edit((editBuilder) => {
-            const position = editor.selection.active;
-            editBuilder.insert(position, snippet);
+            if (insertMode === "newLine") {
+                const line = editor.document.lineAt(editor.selection.active.line);
+                editBuilder.insert(line.range.end, "\n" + snippet);
+            }
+            else {
+                editBuilder.insert(editor.selection.active, snippet);
+            }
         }).then(() => {
             vscode.window.showTextDocument(editor.document, editor.viewColumn, false);
         });
@@ -910,6 +915,104 @@ class CheatSheetPanel {
   }
 
   .fav-group-title:first-child { margin-top: 0; }
+
+  /* ─── SETTINGS ────────────────────────────────── */
+  .settings-anchor {
+    position: relative;
+  }
+
+  .settings-btn {
+    font-size: 13px;
+    padding: 3px 7px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    line-height: 1;
+  }
+
+  .settings-btn:hover { color: var(--text); border-color: var(--accent2); }
+  .settings-btn.open  { color: var(--accent); border-color: var(--accent); background: #0f2a1e; }
+
+  .settings-panel {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    width: 230px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    z-index: 200;
+    padding: 12px;
+  }
+
+  .settings-panel.open { display: block; }
+
+  .settings-title {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .settings-item { margin-bottom: 0; }
+
+  .settings-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+    display: block;
+    letter-spacing: 0.02em;
+  }
+
+  .settings-label small {
+    display: block;
+    font-size: 10px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-top: 1px;
+    letter-spacing: 0;
+  }
+
+  .settings-toggle {
+    display: flex;
+    gap: 2px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2px;
+  }
+
+  .settings-toggle-btn {
+    flex: 1;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    letter-spacing: 0.03em;
+  }
+
+  .settings-toggle-btn:hover { color: var(--text); }
+
+  .settings-toggle-btn.active {
+    background: var(--surface);
+    color: var(--accent);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
 </style>
 </head>
 <body>
@@ -952,6 +1055,24 @@ class CheatSheetPanel {
       <button class="view-btn" id="viewFavs" onclick="setViewMode('favs')" title="Favorites">
         ★ Favs
       </button>
+    </div>
+
+    <!-- Settings -->
+    <div class="settings-anchor">
+      <button class="settings-btn" id="settingsBtn" onclick="toggleSettings()" title="Settings">⚙</button>
+      <div class="settings-panel" id="settingsPanel">
+        <div class="settings-title">⚙ Settings</div>
+        <div class="settings-item">
+          <span class="settings-label">
+            Insert Position
+            <small>Where snippets land when you click Insert</small>
+          </span>
+          <div class="settings-toggle">
+            <button class="settings-toggle-btn" id="settingsSameLine" onclick="setInsertMode('sameLine')">Same Line</button>
+            <button class="settings-toggle-btn" id="settingsNewLine"  onclick="setInsertMode('newLine')">New Line</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1018,6 +1139,9 @@ class CheatSheetPanel {
   let searchQuery = "";
   let viewMode = "cards"; // "cards" | "markdown" | "favs"
   let favorites = []; // { libKey, snippet, desc, category }
+  let insertMode = (function() {
+    try { return localStorage.getItem("devlens_insertMode") || "sameLine"; } catch(e) { return "sameLine"; }
+  })(); // "sameLine" | "newLine"
 
   // Determine initial lang group from currentLib
   function initLangGroup() {
@@ -1030,10 +1154,37 @@ class CheatSheetPanel {
     currentLangGroup = languageGroups[0].label;
   }
 
+  // ─── Settings ────────────────────────────────────────
+  let settingsOpen = false;
+
+  function toggleSettings() {
+    settingsOpen = !settingsOpen;
+    document.getElementById("settingsPanel").classList.toggle("open", settingsOpen);
+    document.getElementById("settingsBtn").classList.toggle("open", settingsOpen);
+  }
+
+  function closeSettings() {
+    settingsOpen = false;
+    document.getElementById("settingsPanel").classList.remove("open");
+    document.getElementById("settingsBtn").classList.remove("open");
+  }
+
+  function setInsertMode(mode) {
+    insertMode = mode;
+    try { localStorage.setItem("devlens_insertMode", mode); } catch(e) {}
+    document.getElementById("settingsSameLine").classList.toggle("active", mode === "sameLine");
+    document.getElementById("settingsNewLine").classList.toggle("active", mode === "newLine");
+  }
+
+  function initSettings() {
+    setInsertMode(insertMode);
+  }
+
   // ─── Init ────────────────────────────────────────────
   function init() {
-    loadFavorites();
     initLangGroup();
+    initSettings();
+    loadFavorites();
     updateTriggerLabel();
     renderLibPills();
     renderTabs();
@@ -1070,10 +1221,17 @@ class CheatSheetPanel {
     document.getElementById("langSearch").value = "";
   }
 
-  // Close when clicking outside
+  // Close dropdowns when clicking outside
   document.addEventListener("click", function(e) {
     const picker = document.getElementById("langPicker");
     if (!picker.contains(e.target)) closeLangDropdown();
+
+    const settingsBtn = document.getElementById("settingsBtn");
+    const settingsPanel = document.getElementById("settingsPanel");
+    if (settingsOpen && settingsBtn && settingsPanel &&
+        !settingsBtn.contains(e.target) && !settingsPanel.contains(e.target)) {
+      closeSettings();
+    }
   });
 
   function filterLangOptions(query) {
@@ -1419,24 +1577,24 @@ function runInstall() {
   function insertSnippet(index) {
   const snippet = window._items[index].snippet;
   const cmd = getInsertTarget() === "terminal" ? "insertInTerminal" : "insertSnippet";
-  vscode.postMessage({ command: cmd, snippet, execute: false });
+  vscode.postMessage({ command: cmd, snippet, execute: false, insertMode });
 }
 
 function insertSnippetMd(idx) {
   const item = window._mdItems?.[idx];
   if (!item) return;
   const cmd = getInsertTarget() === "terminal" ? "insertInTerminal" : "insertSnippet";
-  vscode.postMessage({ command: cmd, snippet: item.snippet, execute: false });
-}
-
-function copySnippetMd(idx) {
-  const item = window._mdItems?.[idx];
-  if (!item) return;
-  vscode.postMessage({ command: "copySnippet", snippet: item.snippet });
+  vscode.postMessage({ command: cmd, snippet: item.snippet, execute: false, insertMode });
 }
 
   function copySnippet(index) {
     vscode.postMessage({ command: "copySnippet", snippet: window._items[index].snippet });
+  }
+
+  function copySnippetMd(idx) {
+    const item = window._mdItems?.[idx];
+    if (!item) return;
+    vscode.postMessage({ command: "copySnippet", snippet: item.snippet });
   }
 
   // ─── Favorites ───────────────────────────────────────
@@ -1448,7 +1606,7 @@ function copySnippetMd(idx) {
   }
 
   function saveFavorites() {
-    localStorage.setItem("devlens_favorites", JSON.stringify(favorites));
+    try { localStorage.setItem("devlens_favorites", JSON.stringify(favorites)); } catch(e) {}
   }
 
   function favKey(libKey, snippet) {
@@ -1499,7 +1657,7 @@ function copySnippetMd(idx) {
     if (!item) return;
     const isTerminal = libraries[item.libKey]?.insertTarget === "terminal";
     const cmd = isTerminal ? "insertInTerminal" : "insertSnippet";
-    vscode.postMessage({ command: cmd, snippet: item.snippet, execute: false });
+    vscode.postMessage({ command: cmd, snippet: item.snippet, execute: false, insertMode });
   }
 
   function copyFavSnippet(favIndex) {
@@ -1545,7 +1703,6 @@ function copySnippetMd(idx) {
       return;
     }
 
-    // Group by library
     const groups = {};
     filtered.forEach(fav => {
       const origIdx = favorites.indexOf(fav);

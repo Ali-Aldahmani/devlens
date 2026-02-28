@@ -6,7 +6,7 @@
 
 <p><strong>Instant, searchable cheat sheets for every language — right inside VS Code.</strong></p>
 
-[![Version](https://img.shields.io/badge/version-0.2.0-5dffb0?style=for-the-badge&labelColor=0d0f14)](#)
+[![Version](https://img.shields.io/badge/version-0.4.0-5dffb0?style=for-the-badge&labelColor=0d0f14)](#)
 [![VS Code](https://img.shields.io/badge/VS%20Code-^1.80.0-4d8cff?style=for-the-badge&logo=visualstudiocode&logoColor=white&labelColor=0d0f14)](https://marketplace.visualstudio.com)
 [![License](https://img.shields.io/badge/license-MIT-ff5d87?style=for-the-badge&labelColor=0d0f14)](#license)
 [![Open Source](https://img.shields.io/badge/open%20source-❤-5dffb0?style=for-the-badge&labelColor=0d0f14)](#contributing)
@@ -24,9 +24,9 @@
 
 ## What is DevLens?
 
-Stop alt-tabbing to docs. DevLens opens a **smart cheat sheet panel beside your code** with 300+ ready-to-use snippets across Python, HTML, CSS, Tailwind, and more.
+Stop alt-tabbing to docs. DevLens opens a **smart cheat sheet panel beside your code** with 400+ ready-to-use snippets across Python, HTML, CSS, Tailwind, Git, Docker, CMD, and more.
 
-It **auto-detects** which library you're using from your imports, switches instantly, and lets you insert any snippet directly at your cursor with one click — no copy-pasting, no context switching.
+It **auto-detects** which library you're using from your imports, switches instantly, and lets you insert any snippet directly at your cursor or terminal with one click — no copy-pasting, no context switching.
 
 > Think of it as having a senior dev sitting next to you who just knows every API off the top of their head.
 
@@ -52,28 +52,53 @@ Every snippet has an **Insert** button. The code lands exactly at your cursor �
 <tr>
 <td width="50%">
 
-### 🌐 Multi-Language Support
-Switch between **Python**, **Web Dev**, and more from a searchable language picker. Find any language or library in under a second — just start typing.
+### 🖥️ Insert in Terminal
+Every snippet also has a **Terminal** button. Click it and the command is sent directly to your active VS Code terminal — perfect for Git, Docker, and shell commands.
 
 </td>
 <td width="50%">
 
-### ⊞ Markdown View
-Toggle between **Cards** and **Markdown** mode. Markdown mode renders all snippets as a clean inline reference doc — great for browsing an entire library at a glance.
+### ★ Favorites
+Star any snippet to save it to your **Favorites panel**. Your favorites are persisted across sessions — pin the commands you reach for every day for instant access.
 
 </td>
 </tr>
 <tr>
 <td width="50%">
 
-### 🔎 Instant Search
-Filter snippets in real time. Search by function name, description, or keyword — across the entire library. Results update as you type.
+### ⚙️ Insert Settings
+Choose how the Insert button behaves via the **Settings panel**: place snippets on the **same line** at your cursor, or always on a **new line** below the current one.
 
 </td>
 <td width="50%">
 
+### 🌐 Multi-Language Support
+Switch between **Python**, **Web Dev**, **DevOps**, and more from a searchable language picker. Find any language or library in under a second — just start typing.
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+### ⊞ Markdown View
+Toggle between **Cards** and **Markdown** mode. Markdown mode renders all snippets as a clean inline reference doc — great for browsing an entire library at a glance.
+
+</td>
+<td width="50%">
+
+### 🔎 Instant Search
+Filter snippets in real time. Search by function name, description, or keyword — across the entire library. Results update as you type.
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
 ### 🗂️ Category Tabs
 Every library is organized into topics — Array Creation, Data Cleaning, Flexbox, Model Evaluation, and more — so you can browse without searching.
+
+</td>
+<td width="50%">
 
 </td>
 </tr>
@@ -101,7 +126,15 @@ Every library is organized into topics — Array Creation, Data Cleaning, Flexbo
 | **CSS** | Selectors · Box Model · Flexbox · Grid · Typography · Animations · Responsive | ~65 |
 | **Tailwind CSS** | Layout · Spacing · Typography · Colors · Borders · States · Patterns | ~60 |
 
-**Total: 410+ snippets across 8 libraries**
+### 🛠️ DevOps & Tools
+
+| Library | Categories | Snippets |
+|---|---|:---:|
+| **Git** | Setup · Basics · Branching · Remote · Stash · History · Advanced | ~50 |
+| **Docker** | Images · Containers · Volumes · Networks · Compose · System | ~45 |
+| **CMD (Windows)** | Navigation · Files · Network · System · Processes | ~35 |
+
+**Total: 400+ snippets across 11 libraries — more coming soon!**
 
 ---
 
@@ -253,20 +286,23 @@ npm run publish
 ### Done
 - [x] NumPy, Pandas, Matplotlib, Seaborn, Scikit-learn
 - [x] HTML, CSS, Tailwind CSS
+- [x] Git, Docker, CMD (Windows)
 - [x] Auto-detection from file imports
 - [x] Insert at cursor + copy to clipboard
+- [x] Insert in terminal with one click
 - [x] Snippet search and category tabs
 - [x] Multi-language picker with search
 - [x] Markdown reference view mode
+- [x] Favorites panel — pin and persist your most-used snippets
+- [x] Settings panel — choose insert position (same line or new line)
 
 ### Upcoming
 - [ ] JavaScript & TypeScript
-- [ ] Git commands
 - [ ] Python stdlib — `os`, `re`, `datetime`, `json`, `itertools`
-- [ ] Favorites / pinned snippets
 - [ ] Recently used snippets
 - [ ] User-defined custom snippet packs
 - [ ] Rust, Go
+- [ ] More languages and tools — stay tuned!
 
 ---
 
