@@ -374,6 +374,11 @@ class CheatSheetPanel {
     border-color: var(--border);
   }
 
+  #langOptionsList {
+    max-height: 260px;
+    overflow-y: auto;
+  }
+
   .lang-no-results {
     padding: 12px;
     text-align: center;

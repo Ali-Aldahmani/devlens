@@ -2,7 +2,7 @@
   "name": "devlens-aldahmani",
   "displayName": "DevLens - Code Reference",
   "description": "Instant cheat sheets for popular libraries — displayed right next to your code.",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/Ali-Aldahmani/devlens.git"
