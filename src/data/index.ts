@@ -21,6 +21,7 @@ import { electronjs } from "./javascript/electron";
 import { nextjs } from "./javascript/nextjs";
 import { angular } from "./javascript/angular";
 import { nestjs } from "./javascript/nestjs";
+import { java } from "./java/java";
 
 
 export interface CheatSheetItem {
@@ -63,6 +64,7 @@ export const libraries: Record<string, LibraryCheatSheet> = {
   cmdw,
   macos,
   linux,
+  java,
 };
 
 // Language groups — controls top-level tab UI
@@ -81,6 +83,11 @@ export const languageGroups: LanguageGroup[] = [
     label: "JavaScript",
     icon: "💻",
     libraries: ["javascript", "react", "typescript", "reactDom", "electronjs", "nextjs", "angular", "nestjs"],
+  },
+  {
+    label: "Java",
+    icon: "꧖",
+    libraries: ["java"],
   },
   {
     label: "Tools",
@@ -109,5 +116,5 @@ export const importDetectionMap: Record<string, string> = {
 };
 
 export { pythonFundamentals, numpy, scipy, pandas, matplotlib, seaborn, sklearn, html, css, tailwind, git, docker, cmdw,
-  macos, linux, javascript, react, typescript, reactDom, electronjs, nextjs, angular, nestjs,
+  macos, linux, javascript, react, typescript, reactDom, electronjs, nextjs, angular, nestjs, java,
  };

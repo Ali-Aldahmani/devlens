@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.nestjs = exports.angular = exports.nextjs = exports.electronjs = exports.reactDom = exports.typescript = exports.react = exports.javascript = exports.linux = exports.macos = exports.cmdw = exports.docker = exports.git = exports.tailwind = exports.css = exports.html = exports.sklearn = exports.seaborn = exports.matplotlib = exports.pandas = exports.scipy = exports.numpy = exports.pythonFundamentals = exports.importDetectionMap = exports.languageGroups = exports.libraries = void 0;
+exports.java = exports.nestjs = exports.angular = exports.nextjs = exports.electronjs = exports.reactDom = exports.typescript = exports.react = exports.javascript = exports.linux = exports.macos = exports.cmdw = exports.docker = exports.git = exports.tailwind = exports.css = exports.html = exports.sklearn = exports.seaborn = exports.matplotlib = exports.pandas = exports.scipy = exports.numpy = exports.pythonFundamentals = exports.importDetectionMap = exports.languageGroups = exports.libraries = void 0;
 const pythonFundamentals_1 = require("./python/pythonFundamentals");
 Object.defineProperty(exports, "pythonFundamentals", { enumerable: true, get: function () { return pythonFundamentals_1.pythonFundamentals; } });
 const numpy_1 = require("./python/numpy");
@@ -47,6 +47,8 @@ const angular_1 = require("./javascript/angular");
 Object.defineProperty(exports, "angular", { enumerable: true, get: function () { return angular_1.angular; } });
 const nestjs_1 = require("./javascript/nestjs");
 Object.defineProperty(exports, "nestjs", { enumerable: true, get: function () { return nestjs_1.nestjs; } });
+const java_1 = require("./java/java");
+Object.defineProperty(exports, "java", { enumerable: true, get: function () { return java_1.java; } });
 // Registry of all available libraries
 exports.libraries = {
     pythonFundamentals: pythonFundamentals_1.pythonFundamentals, javascript: javascript_1.javascript, react: react_1.react, typescript: typescript_1.typescript, reactDom: reactdom_1.reactDom, electronjs: electron_1.electronjs, nextjs: nextjs_1.nextjs,
@@ -63,6 +65,7 @@ exports.libraries = {
     cmdw: cmdw_1.cmdw,
     macos: macos_1.macos,
     linux: linux_1.linux,
+    java: java_1.java,
 };
 // Language groups — controls top-level tab UI
 exports.languageGroups = [
@@ -80,6 +83,11 @@ exports.languageGroups = [
         label: "JavaScript",
         icon: "💻",
         libraries: ["javascript", "react", "typescript", "reactDom", "electronjs", "nextjs", "angular", "nestjs"],
+    },
+    {
+        label: "Java",
+        icon: "꧖",
+        libraries: ["java"],
     },
     {
         label: "Tools",
