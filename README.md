@@ -6,7 +6,7 @@
 
 <p><strong>Instant, searchable cheat sheets for every language — right inside VS Code.</strong></p>
 
-[![Version](https://img.shields.io/badge/version-0.4.1-5dffb0?style=for-the-badge&labelColor=0d0f14)](#)
+[![Version](https://img.shields.io/badge/version-0.4.5-5dffb0?style=for-the-badge&labelColor=0d0f14)](#)
 [![VS Code](https://img.shields.io/badge/VS%20Code-^1.80.0-4d8cff?style=for-the-badge&logo=visualstudiocode&logoColor=white&labelColor=0d0f14)](https://marketplace.visualstudio.com)
 [![License](https://img.shields.io/badge/license-MIT-ff5d87?style=for-the-badge&labelColor=0d0f14)](#license)
 [![Open Source](https://img.shields.io/badge/open%20source-❤-5dffb0?style=for-the-badge&labelColor=0d0f14)](#contributing)
@@ -26,7 +26,7 @@
 
 Stop alt-tabbing to docs.
 
-DevLens opens a **smart cheat sheet panel beside your code** with 700+ ready-to-use snippets across Python, JavaScript, modern frameworks, Web Dev, DevOps, and system tools.
+DevLens opens a **smart cheat sheet panel beside your code** with 700+ ready-to-use snippets across Python, JavaScript, modern frameworks, Web Dev, DevOps, Rust, Go, and system tools.
 
 It **auto-detects** which library you're using from your imports, switches instantly, and lets you insert any snippet directly at your cursor or terminal with one click — no copy-pasting, no context switching.
 
@@ -52,6 +52,7 @@ Star snippets and persist them across sessions.
 Choose:
 - Insert on same line
 - Insert on new line
+- Insert in terminal
 
 ### 🌐 Multi-Language Picker
 Search and switch between ecosystems instantly.
@@ -67,7 +68,7 @@ Organized libraries for fast browsing.
 
 ---
 
-# 📚 Supported Libraries (v0.4.1)
+# 📚 Supported Libraries (v0.4.5)
 
 ## 🐍 Python
 
@@ -113,10 +114,12 @@ Organized libraries for fast browsing.
 - Windows CMD
 - macOS Terminal
 - Linux Commands
+- Rust
+- Go
 
 ---
 
-**700+ snippets across 18+ libraries — and growing.**
+**700+ snippets across 20+ libraries — and growing.**
 
 ---
 
@@ -190,9 +193,10 @@ npm run publish
 - Web Dev Stack
 - DevOps Commands
 - macOS + Linux Terminal Commands
+- Rust & Go support
 - Auto Detection
 - Favorites Panel
-- Insert Settings
+- Insert Settings (code or terminal)
 - Markdown View Mode
 
 ## 🔜 Coming Next
@@ -200,8 +204,6 @@ npm run publish
 - Python stdlib modules (`os`, `re`, `datetime`, etc.)
 - Recently Used snippets
 - Custom user snippet packs
-- Rust
-- Go
 - More backend ecosystems
 
 ---
