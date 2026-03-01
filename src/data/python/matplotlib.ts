@@ -1,6 +1,7 @@
 export const matplotlib = {
   name: "Matplotlib",
   import: "import matplotlib.pyplot as plt",
+  install: "pip install matplotlib",
   categories: [
     {
       title: "Basic Plots",
@@ -15,6 +16,8 @@ export const matplotlib = {
         { snippet: "plt.boxplot(data)", desc: "Box and whisker plot" },
         { snippet: "plt.errorbar(x, y, yerr=err)", desc: "Line plot with error bars" },
         { snippet: "plt.fill_between(x, y1, y2)", desc: "Fill area between two lines" },
+        { snippet: "plt.plot(x, y1, label='Series1'); plt.plot(x, y2, label='Series2'); plt.legend()", desc: "Multiple lines with legend" },
+        { snippet: "plt.scatter(x1, y1); plt.scatter(x2, y2, c='red')", desc: "Multiple scatter series" },
       ],
     },
     {
@@ -27,6 +30,9 @@ export const matplotlib = {
         { snippet: "plt.legend(loc='upper right')", desc: "Legend at specific location" },
         { snippet: "plt.annotate('note', xy=(x,y))", desc: "Annotate a point" },
         { snippet: "plt.text(x, y, 'text')", desc: "Add text at coordinates" },
+        { snippet: "plt.axhline(y=0, color='grey', linestyle='--')", desc: "Horizontal reference line" },
+        { snippet: "plt.axvline(x=5, color='red', linestyle=':')", desc: "Vertical reference line" },
+        { snippet: "plt.annotate('max', xy=(x_max, y_max), xytext=(x_max+1, y_max+0.1), arrowprops=dict(facecolor='black'))", desc: "Annotate point with arrow" },
       ],
     },
     {
@@ -38,7 +44,10 @@ export const matplotlib = {
         { snippet: "plt.grid(True)", desc: "Show grid lines" },
         { snippet: "plt.grid(True, linestyle='--', alpha=0.5)", desc: "Styled grid" },
         { snippet: "plt.xscale('log')", desc: "Logarithmic X scale" },
+        { snippet: "plt.yscale('log')", desc: "Logarithmic Y scale" },
         { snippet: "plt.axis('equal')", desc: "Equal aspect ratio" },
+        { snippet: "ax.set_xlim(0, 20); ax.set_ylim(-1, 1)", desc: "Set axes limits via axes object" },
+        { snippet: "ax.set_xticklabels(['A','B','C'])", desc: "Custom tick labels" },
       ],
     },
     {
@@ -51,17 +60,34 @@ export const matplotlib = {
         { snippet: "plt.tight_layout()", desc: "Auto-adjust subplot spacing" },
         { snippet: "plt.subplot(2, 2, 1)", desc: "Select subplot at position 1" },
         { snippet: "fig.suptitle('Main Title')", desc: "Overall figure title" },
+        { snippet: "fig, axes = plt.subplots(3,1, sharex=True, sharey=True)", desc: "Shared axes subplots" },
+        { snippet: "plt.subplot2grid((3,3),(0,0), colspan=2)", desc: "Custom subplot grid layout" },
       ],
     },
     {
-      title: "Styling",
+      title: "Styling & Colormaps",
       items: [
         { snippet: "plt.style.use('seaborn')", desc: "Apply seaborn style" },
         { snippet: "plt.style.use('ggplot')", desc: "Apply ggplot style" },
         { snippet: "plt.plot(x, y, color='#FF5733', linewidth=2)", desc: "Custom color and width" },
         { snippet: "plt.scatter(x, y, c=colors, cmap='viridis', s=size)", desc: "Colored scatter with cmap" },
+        { snippet: "plt.cm.get_cmap('coolwarm')", desc: "Get custom colormap object" },
         { snippet: "plt.colorbar()", desc: "Add colorbar to plot" },
         { snippet: "plt.rcParams['font.size'] = 14", desc: "Set global font size" },
+      ],
+    },
+    {
+      title: "Interactive & Advanced",
+      items: [
+        { snippet: "plt.ion()", desc: "Interactive mode on" },
+        { snippet: "plt.pause(0.1)", desc: "Pause for interactive updates" },
+      ],
+    },
+    {
+      title: "Seaborn Integration",
+      items: [
+        { snippet: "import seaborn as sns; sns.histplot(data)", desc: "Seaborn histogram" },
+        { snippet: "sns.heatmap(df.corr(), annot=True)", desc: "Correlation heatmap" },
       ],
     },
     {

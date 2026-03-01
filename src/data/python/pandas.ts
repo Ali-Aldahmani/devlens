@@ -1,6 +1,7 @@
 export const pandas = {
   name: "Pandas",
   import: "import pandas as pd",
+  install: "pip install pandas",
   categories: [
     {
       title: "Creating DataFrames",
@@ -36,9 +37,12 @@ export const pandas = {
         { snippet: "df.loc[0:5, 'col']", desc: "Label-based loc selection" },
         { snippet: "df.iloc[0:5, 0:2]", desc: "Integer-based iloc selection" },
         { snippet: "df[df['col'] > 10]", desc: "Filter rows by condition" },
+        { snippet: "df[(df['a']>5) & (df['b']<10)]", desc: "Filter rows with multiple conditions" },
         { snippet: "df.query('age > 18 and city == \"NY\"')", desc: "SQL-like query string" },
         { snippet: "df[df['col'].isin([1, 2, 3])]", desc: "Filter by value list" },
         { snippet: "df[df['col'].str.contains('text')]", desc: "Filter by string match" },
+        { snippet: "df.xs('label', level=1)", desc: "Select data from MultiIndex" },
+        { snippet: "df.loc[idx['a','b'], :]", desc: "Advanced loc selection with MultiIndex" },
       ],
     },
     {
@@ -49,6 +53,9 @@ export const pandas = {
         { snippet: "df.dropna(subset=['col'])", desc: "Drop rows where col is null" },
         { snippet: "df.fillna(0)", desc: "Fill nulls with 0" },
         { snippet: "df.fillna(df.mean())", desc: "Fill nulls with column mean" },
+        { snippet: "df.fillna(method='ffill')", desc: "Forward fill missing values" },
+        { snippet: "df.fillna(method='bfill')", desc: "Backward fill missing values" },
+        { snippet: "df['col'].interpolate()", desc: "Fill missing values with interpolation" },
         { snippet: "df.drop_duplicates()", desc: "Remove duplicate rows" },
         { snippet: "df.rename(columns={'old': 'new'})", desc: "Rename columns" },
         { snippet: "df.drop(columns=['col1'])", desc: "Drop a column" },
@@ -80,6 +87,24 @@ export const pandas = {
         { snippet: "df.merge(df2, on='id', how='left')", desc: "Left join two DataFrames" },
         { snippet: "pd.concat([df1, df2], axis=0)", desc: "Stack DataFrames vertically" },
         { snippet: "df['col'].rolling(7).mean()", desc: "7-period rolling average" },
+        { snippet: "df['col'].rolling(7).sum()", desc: "7-period rolling sum" },
+        { snippet: "df['col'].expanding().mean()", desc: "Expanding mean" },
+      ],
+    },
+    {
+      title: "Time Series",
+      items: [
+        { snippet: "pd.to_datetime(df['date'])", desc: "Convert column to datetime" },
+        { snippet: "df['date'].dt.year", desc: "Extract year from datetime column" },
+        { snippet: "df['date'].dt.month", desc: "Extract month" },
+        { snippet: "df.resample('M').mean()", desc: "Resample time series by month" },
+      ],
+    },
+    {
+      title: "Categorical Data",
+      items: [
+        { snippet: "df['col'].astype('category')", desc: "Convert column to categorical type" },
+        { snippet: "df['col'].cat.codes", desc: "Get integer codes for categories" },
       ],
     },
     {
@@ -89,6 +114,13 @@ export const pandas = {
         { snippet: "df.to_excel('file.xlsx', index=False)", desc: "Save to Excel" },
         { snippet: "df.to_json('file.json')", desc: "Save to JSON" },
         { snippet: "df.to_sql('table', conn)", desc: "Save to SQL table" },
+      ],
+    },
+    {
+      title: "Performance & Querying",
+      items: [
+        { snippet: "df.eval('C = A + B')", desc: "Compute new column efficiently" },
+        { snippet: "df.query('A > 5 & B < 10')", desc: "Fast query" },
       ],
     },
   ],
