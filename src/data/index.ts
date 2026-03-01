@@ -1,5 +1,6 @@
 import { pythonFundamentals } from "./python/pythonFundamentals";
 import { numpy } from "./python/numpy";
+import { scipy } from "./python/scipy";
 import { pandas } from "./python/pandas";
 import { matplotlib } from "./python/matplotlib";
 import { seaborn } from "./python/seaborn";
@@ -50,7 +51,7 @@ export interface LanguageGroup {
 export const libraries: Record<string, LibraryCheatSheet> = {
   pythonFundamentals, javascript, react, typescript, reactDom, electronjs, nextjs,
   angular, nestjs, numpy,
-  pandas,
+  pandas, scipy,
   matplotlib,
   seaborn,
   sklearn,
@@ -69,7 +70,7 @@ export const languageGroups: LanguageGroup[] = [
   {
     label: "Python",
     icon: "🐍",
-    libraries: [ "pythonFundamentals", "numpy", "pandas", "matplotlib", "seaborn", "sklearn"],
+    libraries: [ "pythonFundamentals", "numpy", "scipy", "pandas", "matplotlib", "seaborn", "sklearn"],
   },
   {
     label: "Web Dev",
@@ -93,6 +94,8 @@ export const importDetectionMap: Record<string, string> = {
   // Python
   "import numpy":      "numpy",
   "from numpy":        "numpy",
+  "import scipy":      "scipy",
+  "from scipy":        "scipy",
   "import pandas":     "pandas",
   "from pandas":       "pandas",
   "import matplotlib": "matplotlib",
@@ -105,6 +108,6 @@ export const importDetectionMap: Record<string, string> = {
   // Web Dev (HTML/CSS auto-detected by file extension in extension.ts)
 };
 
-export { pythonFundamentals, numpy, pandas, matplotlib, seaborn, sklearn, html, css, tailwind, git, docker, cmdw,
+export { pythonFundamentals, numpy, scipy, pandas, matplotlib, seaborn, sklearn, html, css, tailwind, git, docker, cmdw,
   macos, linux, javascript, react, typescript, reactDom, electronjs, nextjs, angular, nestjs,
  };

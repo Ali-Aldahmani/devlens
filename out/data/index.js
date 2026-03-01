@@ -1,10 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.nestjs = exports.angular = exports.nextjs = exports.electronjs = exports.reactDom = exports.typescript = exports.react = exports.javascript = exports.linux = exports.macos = exports.cmdw = exports.docker = exports.git = exports.tailwind = exports.css = exports.html = exports.sklearn = exports.seaborn = exports.matplotlib = exports.pandas = exports.numpy = exports.pythonFundamentals = exports.importDetectionMap = exports.languageGroups = exports.libraries = void 0;
+exports.nestjs = exports.angular = exports.nextjs = exports.electronjs = exports.reactDom = exports.typescript = exports.react = exports.javascript = exports.linux = exports.macos = exports.cmdw = exports.docker = exports.git = exports.tailwind = exports.css = exports.html = exports.sklearn = exports.seaborn = exports.matplotlib = exports.pandas = exports.scipy = exports.numpy = exports.pythonFundamentals = exports.importDetectionMap = exports.languageGroups = exports.libraries = void 0;
 const pythonFundamentals_1 = require("./python/pythonFundamentals");
 Object.defineProperty(exports, "pythonFundamentals", { enumerable: true, get: function () { return pythonFundamentals_1.pythonFundamentals; } });
 const numpy_1 = require("./python/numpy");
 Object.defineProperty(exports, "numpy", { enumerable: true, get: function () { return numpy_1.numpy; } });
+const scipy_1 = require("./python/scipy");
+Object.defineProperty(exports, "scipy", { enumerable: true, get: function () { return scipy_1.scipy; } });
 const pandas_1 = require("./python/pandas");
 Object.defineProperty(exports, "pandas", { enumerable: true, get: function () { return pandas_1.pandas; } });
 const matplotlib_1 = require("./python/matplotlib");
@@ -49,7 +51,7 @@ Object.defineProperty(exports, "nestjs", { enumerable: true, get: function () { 
 exports.libraries = {
     pythonFundamentals: pythonFundamentals_1.pythonFundamentals, javascript: javascript_1.javascript, react: react_1.react, typescript: typescript_1.typescript, reactDom: reactdom_1.reactDom, electronjs: electron_1.electronjs, nextjs: nextjs_1.nextjs,
     angular: angular_1.angular, nestjs: nestjs_1.nestjs, numpy: numpy_1.numpy,
-    pandas: pandas_1.pandas,
+    pandas: pandas_1.pandas, scipy: scipy_1.scipy,
     matplotlib: matplotlib_1.matplotlib,
     seaborn: seaborn_1.seaborn,
     sklearn: sklearn_1.sklearn,
@@ -67,7 +69,7 @@ exports.languageGroups = [
     {
         label: "Python",
         icon: "🐍",
-        libraries: ["pythonFundamentals", "numpy", "pandas", "matplotlib", "seaborn", "sklearn"],
+        libraries: ["pythonFundamentals", "numpy", "scipy", "pandas", "matplotlib", "seaborn", "sklearn"],
     },
     {
         label: "Web Dev",
@@ -90,6 +92,8 @@ exports.importDetectionMap = {
     // Python
     "import numpy": "numpy",
     "from numpy": "numpy",
+    "import scipy": "scipy",
+    "from scipy": "scipy",
     "import pandas": "pandas",
     "from pandas": "pandas",
     "import matplotlib": "matplotlib",
