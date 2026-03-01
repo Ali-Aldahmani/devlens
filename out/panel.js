@@ -1195,8 +1195,6 @@ class CheatSheetPanel {
 
   // ─── Language Picker Dropdown ────────────────────────
   const comingSoonLangs = [
-    { label: "JavaScript", icon: "JS", group: "Web Dev" },
-    { label: "TypeScript", icon: "TS", group: "Web Dev" },
     { label: "Java",       icon: "☕", group: "Backend" },
     { label: "Rust",       icon: "🦀", group: "Systems" },
     { label: "Go",         icon: "🐹", group: "Backend" },
