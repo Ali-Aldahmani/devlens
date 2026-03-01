@@ -1,6 +1,6 @@
 export const java = {
   name: "Java",
-  import: " ",
+  import: "Java",
   categories: [
     {
       title: "Basic Syntax & Types",

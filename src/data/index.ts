@@ -24,6 +24,8 @@ import { nestjs } from "./javascript/nestjs";
 import { java } from "./java/java";
 import { go } from "./golang/go";
 import { rust } from "./rust/rust";
+import { r } from "./r/r";
+import { matrixStats } from "./r/matrixstats";
 
 
 export interface CheatSheetItem {
@@ -69,6 +71,7 @@ export const libraries: Record<string, LibraryCheatSheet> = {
   java,
   go,
   rust,
+  r, matrixStats,
 };
 
 // Language groups — controls top-level tab UI
@@ -104,6 +107,11 @@ export const languageGroups: LanguageGroup[] = [
     libraries: ["rust"],
   },
   {
+    label: "R",
+    icon: "𝑹",
+    libraries: ["r", "matrixStats"],
+  },
+  {
     label: "Tools",
     icon: "🧰",
     libraries: ["git", "docker", "cmdw", "macos"],
@@ -130,5 +138,5 @@ export const importDetectionMap: Record<string, string> = {
 };
 
 export { pythonFundamentals, numpy, scipy, pandas, matplotlib, seaborn, sklearn, html, css, tailwind, git, docker, cmdw,
-  macos, linux, javascript, react, typescript, reactDom, electronjs, nextjs, angular, nestjs, java, go, rust,
+  macos, linux, javascript, react, typescript, reactDom, electronjs, nextjs, angular, nestjs, java, go, rust, r, matrixStats,
  };

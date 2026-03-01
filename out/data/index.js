@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.rust = exports.go = exports.java = exports.nestjs = exports.angular = exports.nextjs = exports.electronjs = exports.reactDom = exports.typescript = exports.react = exports.javascript = exports.linux = exports.macos = exports.cmdw = exports.docker = exports.git = exports.tailwind = exports.css = exports.html = exports.sklearn = exports.seaborn = exports.matplotlib = exports.pandas = exports.scipy = exports.numpy = exports.pythonFundamentals = exports.importDetectionMap = exports.languageGroups = exports.libraries = void 0;
+exports.matrixStats = exports.r = exports.rust = exports.go = exports.java = exports.nestjs = exports.angular = exports.nextjs = exports.electronjs = exports.reactDom = exports.typescript = exports.react = exports.javascript = exports.linux = exports.macos = exports.cmdw = exports.docker = exports.git = exports.tailwind = exports.css = exports.html = exports.sklearn = exports.seaborn = exports.matplotlib = exports.pandas = exports.scipy = exports.numpy = exports.pythonFundamentals = exports.importDetectionMap = exports.languageGroups = exports.libraries = void 0;
 const pythonFundamentals_1 = require("./python/pythonFundamentals");
 Object.defineProperty(exports, "pythonFundamentals", { enumerable: true, get: function () { return pythonFundamentals_1.pythonFundamentals; } });
 const numpy_1 = require("./python/numpy");
@@ -53,6 +53,10 @@ const go_1 = require("./golang/go");
 Object.defineProperty(exports, "go", { enumerable: true, get: function () { return go_1.go; } });
 const rust_1 = require("./rust/rust");
 Object.defineProperty(exports, "rust", { enumerable: true, get: function () { return rust_1.rust; } });
+const r_1 = require("./r/r");
+Object.defineProperty(exports, "r", { enumerable: true, get: function () { return r_1.r; } });
+const matrixstats_1 = require("./r/matrixstats");
+Object.defineProperty(exports, "matrixStats", { enumerable: true, get: function () { return matrixstats_1.matrixStats; } });
 // Registry of all available libraries
 exports.libraries = {
     pythonFundamentals: pythonFundamentals_1.pythonFundamentals, javascript: javascript_1.javascript, react: react_1.react, typescript: typescript_1.typescript, reactDom: reactdom_1.reactDom, electronjs: electron_1.electronjs, nextjs: nextjs_1.nextjs,
@@ -72,6 +76,7 @@ exports.libraries = {
     java: java_1.java,
     go: go_1.go,
     rust: rust_1.rust,
+    r: r_1.r, matrixStats: matrixstats_1.matrixStats,
 };
 // Language groups — controls top-level tab UI
 exports.languageGroups = [
@@ -104,6 +109,11 @@ exports.languageGroups = [
         label: "Rust",
         icon: "𐌿",
         libraries: ["rust"],
+    },
+    {
+        label: "R",
+        icon: "𝑹",
+        libraries: ["r", "matrixStats"],
     },
     {
         label: "Tools",
