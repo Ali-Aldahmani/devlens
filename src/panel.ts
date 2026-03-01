@@ -4,12 +4,14 @@ import { libraries, languageGroups } from "./data/index";
 export class CheatSheetPanel {
   public static currentPanel: CheatSheetPanel | undefined;
   public static readonly viewType = "devLens";
+  public static suppressAutoSwitch = false;
 
   private readonly _panel: vscode.WebviewPanel;
   private readonly _extensionUri: vscode.Uri;
   private _currentLibrary: string = "pandas";
   private _disposables: vscode.Disposable[] = [];
   private _lastPythonEditor: vscode.TextEditor | undefined;
+  private _manualSelection: boolean = false;
 
   public static createOrShow(
     extensionUri: vscode.Uri,
@@ -55,6 +57,7 @@ export class CheatSheetPanel {
             this._insertSnippet(message.snippet, message.insertMode ?? "sameLine");
             break;
           case "switchLibrary":
+            this._manualSelection = true;
             this._currentLibrary = message.library;
             this._update();
             break;
@@ -85,6 +88,7 @@ export class CheatSheetPanel {
   }
 
   public switchLibrary(libraryKey: string) {
+    if (this._manualSelection) return;
     if (this._currentLibrary === libraryKey) return;
     this._currentLibrary = libraryKey;
     this._panel.webview.postMessage({
@@ -105,6 +109,7 @@ export class CheatSheetPanel {
       return;
     }
 
+    CheatSheetPanel.suppressAutoSwitch = true;
     editor.edit((editBuilder) => {
       if (insertMode === "newLine") {
         const line = editor.document.lineAt(editor.selection.active.line);
@@ -113,7 +118,9 @@ export class CheatSheetPanel {
         editBuilder.insert(editor.selection.active, snippet);
       }
     }).then(() => {
-      vscode.window.showTextDocument(editor.document, editor.viewColumn, false);
+      setTimeout(() => {
+        CheatSheetPanel.suppressAutoSwitch = false;
+      }, 200);
     });
   }
 
@@ -664,6 +671,28 @@ export class CheatSheetPanel {
     border-color: var(--accent2);
   }
 
+  .snippet-btn.target-toggle {
+    font-size: 9px;
+    padding: 4px 7px;
+    opacity: 0.65;
+  }
+
+  .snippet-btn.target-toggle:hover { opacity: 1; }
+
+  .snippet-btn.target-toggle.editor {
+    color: #5dffb0;
+    border-color: #2a4a36;
+    background: #0a1a12;
+    opacity: 1;
+  }
+
+  .snippet-btn.target-toggle.terminal {
+    color: #f7c948;
+    border-color: #4a3a10;
+    background: #1a1200;
+    opacity: 1;
+  }
+
   /* ─── MARKDOWN VIEW ───────────────────────────── */
   .markdown-view {
     flex: 1;
@@ -815,6 +844,28 @@ export class CheatSheetPanel {
   }
 
   .md-btn.copy:hover { border-color: var(--accent2); background: #0f1a38; }
+
+  .md-btn.target-toggle {
+    font-size: 9px;
+    padding: 2px 6px;
+    opacity: 0.65;
+  }
+
+  .md-btn.target-toggle:hover { opacity: 1; }
+
+  .md-btn.target-toggle.editor {
+    color: #5dffb0;
+    border-color: #2a4a36;
+    background: #0a1a12;
+    opacity: 1;
+  }
+
+  .md-btn.target-toggle.terminal {
+    color: #f7c948;
+    border-color: #4a3a10;
+    background: #1a1200;
+    opacity: 1;
+  }
 
   /* ─── EMPTY STATE ─────────────────────────────── */
   .empty {
@@ -1193,6 +1244,7 @@ export class CheatSheetPanel {
     initLangGroup();
     initSettings();
     loadFavorites();
+    loadSnippetTargets();
     updateTriggerLabel();
     renderLibPills();
     renderTabs();
@@ -1388,6 +1440,52 @@ function getInsertTarget() {
   return libraries[currentLib].insertTarget || "editor";
 }
 
+  // ─── Per-Snippet Target Overrides ────────────────────
+  let snippetTargets = {};
+
+  function loadSnippetTargets() {
+    try {
+      const stored = localStorage.getItem("devlens_snippetTargets");
+      snippetTargets = stored ? JSON.parse(stored) : {};
+    } catch(e) { snippetTargets = {}; }
+  }
+
+  function saveSnippetTargets() {
+    try { localStorage.setItem("devlens_snippetTargets", JSON.stringify(snippetTargets)); } catch(e) {}
+  }
+
+  function snippetTargetKey(libKey, snippet) {
+    return libKey + "||" + snippet;
+  }
+
+  // Priority: user override → item.insertTarget → library.insertTarget → "editor"
+  function getItemTarget(libKey, item) {
+    const key = snippetTargetKey(libKey, item.snippet);
+    if (snippetTargets[key]) return snippetTargets[key];
+    if (item.insertTarget) return item.insertTarget;
+    return libraries[libKey]?.insertTarget || "editor";
+  }
+
+  function toggleSnippetTarget(index) {
+    const item = window._items[index];
+    if (!item) return;
+    const key = snippetTargetKey(currentLib, item.snippet);
+    const current = getItemTarget(currentLib, item);
+    snippetTargets[key] = current === "terminal" ? "editor" : "terminal";
+    saveSnippetTargets();
+    renderContent();
+  }
+
+  function toggleSnippetTargetMd(globalIdx) {
+    const item = window._mdItems?.[globalIdx];
+    if (!item) return;
+    const key = snippetTargetKey(currentLib, item.snippet);
+    const current = getItemTarget(currentLib, item);
+    snippetTargets[key] = current === "terminal" ? "editor" : "terminal";
+    saveSnippetTargets();
+    renderContent();
+  }
+
 function runInstall() {
   const lib = libraries[currentLib];
   if (lib.install) {
@@ -1489,8 +1587,6 @@ function runInstall() {
   function renderCards() {
     const items = getFilteredItems();
     const container = document.getElementById("snippetList");
-    const isTerminal = getInsertTarget() === "terminal";
-    const insertLabel = isTerminal ? "⌨ Send to Terminal" : "⌨ Insert";
 
     document.getElementById("countLabel").textContent = \`\${items.length} snippet\${items.length !== 1 ? "s" : ""}\`;
 
@@ -1504,17 +1600,23 @@ function runInstall() {
       return;
     }
 
-    container.innerHTML = items.map((item, i) => \`
-      <div class="snippet-card" style="animation-delay:\${Math.min(i * 0.02, 0.3)}s">
-        <div class="snippet-desc">\${escapeHtml(item.desc)}</div>
-        <div class="snippet-code">\${highlight(escapeHtml(item.snippet))}</div>
-        <div class="snippet-actions">
-          <button class="snippet-btn insert" onclick="insertSnippet(\${i})">\${getInsertTarget() === 'terminal' ? '⌨ Send to Terminal' : '⌨ Insert'}</button>
-          <button class="snippet-btn copy"   onclick="copySnippet(\${i})">⎘ Copy</button>
-          <button class="fav-btn \${isFavorite(currentLib, item) ? 'active' : ''}" onclick="toggleFavorite(currentLib, \${i})" title="\${isFavorite(currentLib, item) ? 'Remove from favorites' : 'Add to favorites'}">★</button>
+    container.innerHTML = items.map((item, i) => {
+      const target = getItemTarget(currentLib, item);
+      const insertLabel = target === "terminal" ? "⌨ Terminal" : "⌨ Insert";
+      const toggleLabel = target === "terminal" ? "TERM" : "CODE";
+      return \`
+        <div class="snippet-card" style="animation-delay:\${Math.min(i * 0.02, 0.3)}s">
+          <div class="snippet-desc">\${escapeHtml(item.desc)}</div>
+          <div class="snippet-code">\${highlight(escapeHtml(item.snippet))}</div>
+          <div class="snippet-actions">
+            <button class="snippet-btn insert" onclick="insertSnippet(\${i})">\${insertLabel}</button>
+            <button class="snippet-btn copy"   onclick="copySnippet(\${i})">⎘ Copy</button>
+            <button class="snippet-btn target-toggle \${target}" onclick="toggleSnippetTarget(\${i})" title="Toggle insert target: Code Editor / Terminal">\${toggleLabel}</button>
+            <button class="fav-btn \${isFavorite(currentLib, item) ? 'active' : ''}" onclick="toggleFavorite(currentLib, \${i})" title="\${isFavorite(currentLib, item) ? 'Remove from favorites' : 'Add to favorites'}">★</button>
+          </div>
         </div>
-      </div>
-    \`).join("");
+      \`;
+    }).join("");
 
     window._items = items;
   }
@@ -1548,6 +1650,9 @@ function runInstall() {
         html += \`<div class="md-category-title">\${escapeHtml(cat.title)}</div>\`;
         cat.items.forEach((item, ii) => {
           const globalIdx = \`md_\${ci}_\${ii}\`;
+          const mdTarget = getItemTarget(currentLib, item);
+          const mdInsertLabel = mdTarget === "terminal" ? "⌨ Terminal" : "⌨ Insert";
+          const mdToggleLabel = mdTarget === "terminal" ? "TERM" : "CODE";
           html += \`
             <div class="md-item">
               <div class="md-item-left">
@@ -1555,8 +1660,9 @@ function runInstall() {
                 <code class="md-item-snippet">\${highlightText(escapeHtml(item.snippet))}</code>
               </div>
               <div class="md-item-actions">
-                <button class="md-btn insert" onclick="insertSnippetMd('\${globalIdx}')">⌨ Insert</button>
+                <button class="md-btn insert" onclick="insertSnippetMd('\${globalIdx}')">\${mdInsertLabel}</button>
                 <button class="md-btn copy"   onclick="copySnippetMd('\${globalIdx}')">⎘ Copy</button>
+                <button class="md-btn target-toggle \${mdTarget}" onclick="toggleSnippetTargetMd('\${globalIdx}')" title="Toggle insert target: Code Editor / Terminal">\${mdToggleLabel}</button>
                 <button class="md-btn fav \${isFavorite(currentLib, item) ? 'active' : ''}" onclick="toggleFavoriteMd('\${globalIdx}')" title="\${isFavorite(currentLib, item) ? 'Remove from favorites' : 'Add to favorites'}">★</button>
               </div>
             </div>
@@ -1581,17 +1687,18 @@ function runInstall() {
   }
 
   function insertSnippet(index) {
-  const snippet = window._items[index].snippet;
-  const cmd = getInsertTarget() === "terminal" ? "insertInTerminal" : "insertSnippet";
-  vscode.postMessage({ command: cmd, snippet, execute: false, insertMode });
-}
+    const item = window._items[index];
+    if (!item) return;
+    const cmd = getItemTarget(currentLib, item) === "terminal" ? "insertInTerminal" : "insertSnippet";
+    vscode.postMessage({ command: cmd, snippet: item.snippet, execute: false, insertMode });
+  }
 
-function insertSnippetMd(idx) {
-  const item = window._mdItems?.[idx];
-  if (!item) return;
-  const cmd = getInsertTarget() === "terminal" ? "insertInTerminal" : "insertSnippet";
-  vscode.postMessage({ command: cmd, snippet: item.snippet, execute: false, insertMode });
-}
+  function insertSnippetMd(idx) {
+    const item = window._mdItems?.[idx];
+    if (!item) return;
+    const cmd = getItemTarget(currentLib, item) === "terminal" ? "insertInTerminal" : "insertSnippet";
+    vscode.postMessage({ command: cmd, snippet: item.snippet, execute: false, insertMode });
+  }
 
   function copySnippet(index) {
     vscode.postMessage({ command: "copySnippet", snippet: window._items[index].snippet });
@@ -1661,8 +1768,7 @@ function insertSnippetMd(idx) {
   function insertFavSnippet(favIndex) {
     const item = favorites[favIndex];
     if (!item) return;
-    const isTerminal = libraries[item.libKey]?.insertTarget === "terminal";
-    const cmd = isTerminal ? "insertInTerminal" : "insertSnippet";
+    const cmd = getItemTarget(item.libKey, item) === "terminal" ? "insertInTerminal" : "insertSnippet";
     vscode.postMessage({ command: cmd, snippet: item.snippet, execute: false, insertMode });
   }
 
@@ -1719,15 +1825,16 @@ function insertSnippetMd(idx) {
     let html = "";
     Object.entries(groups).forEach(([libKey, items]) => {
       const libName = libraries[libKey]?.name || libKey;
-      const isTerminal = libraries[libKey]?.insertTarget === "terminal";
       html += \`<div class="fav-group-title">\${escapeHtml(libName)}</div>\`;
       items.forEach((item, i) => {
+        const favTarget = getItemTarget(libKey, item);
+        const favInsertLabel = favTarget === "terminal" ? "⌨ Terminal" : "⌨ Insert";
         html += \`
           <div class="snippet-card" style="animation-delay:\${Math.min(i * 0.02, 0.3)}s">
             <div class="snippet-desc">\${escapeHtml(item.desc)}</div>
             <div class="snippet-code">\${escapeHtml(item.snippet)}</div>
             <div class="snippet-actions">
-              <button class="snippet-btn insert" onclick="insertFavSnippet(\${item.favIndex})">\${isTerminal ? '⌨ Send to Terminal' : '⌨ Insert'}</button>
+              <button class="snippet-btn insert" onclick="insertFavSnippet(\${item.favIndex})">\${favInsertLabel}</button>
               <button class="snippet-btn copy"   onclick="copyFavSnippet(\${item.favIndex})">⎘ Copy</button>
               <button class="fav-btn active" onclick="toggleFavoriteFav(\${item.favIndex})" title="Remove from favorites">★</button>
             </div>

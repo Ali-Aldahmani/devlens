@@ -31,6 +31,7 @@ import { matrixStats } from "./r/matrixstats";
 export interface CheatSheetItem {
   snippet: string;
   desc: string;
+  insertTarget?: "editor" | "terminal";
 }
 
 export interface CheatSheetCategory {

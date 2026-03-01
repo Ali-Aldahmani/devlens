@@ -24,6 +24,7 @@ export function activate(context: vscode.ExtensionContext) {
   // Auto-detect library when active editor changes
   const editorChangeListener = vscode.window.onDidChangeActiveTextEditor(
     (editor) => {
+      if (CheatSheetPanel.suppressAutoSwitch) return;
       if (!editor || editor.document.languageId !== "python") return;
       if (!CheatSheetPanel.currentPanel) return; // Only auto-switch if panel is open
 
@@ -32,25 +33,10 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  // Also auto-detect when document content changes
-  const docChangeListener = vscode.workspace.onDidChangeTextDocument((e) => {
-    const editor = vscode.window.activeTextEditor;
-    if (!editor || editor.document !== e.document) return;
-    if (editor.document.languageId !== "python") return;
-    if (!CheatSheetPanel.currentPanel) return;
-
-    // Debounce: only scan first 100 lines to keep it fast
-    const text = e.document.getText(
-      new vscode.Range(0, 0, Math.min(100, e.document.lineCount), 0)
-    );
-    detectAndSwitchLibrary(text);
-  });
-
   context.subscriptions.push(
     openCommand,
     openLibraryCommand,
-    editorChangeListener,
-    docChangeListener
+    editorChangeListener
   );
 }
 

@@ -50,6 +50,8 @@ function activate(context) {
     });
     // Auto-detect library when active editor changes
     const editorChangeListener = vscode.window.onDidChangeActiveTextEditor((editor) => {
+        if (panel_1.CheatSheetPanel.suppressAutoSwitch)
+            return;
         if (!editor || editor.document.languageId !== "python")
             return;
         if (!panel_1.CheatSheetPanel.currentPanel)
@@ -57,20 +59,7 @@ function activate(context) {
         const text = editor.document.getText();
         detectAndSwitchLibrary(text);
     });
-    // Also auto-detect when document content changes
-    const docChangeListener = vscode.workspace.onDidChangeTextDocument((e) => {
-        const editor = vscode.window.activeTextEditor;
-        if (!editor || editor.document !== e.document)
-            return;
-        if (editor.document.languageId !== "python")
-            return;
-        if (!panel_1.CheatSheetPanel.currentPanel)
-            return;
-        // Debounce: only scan first 100 lines to keep it fast
-        const text = e.document.getText(new vscode.Range(0, 0, Math.min(100, e.document.lineCount), 0));
-        detectAndSwitchLibrary(text);
-    });
-    context.subscriptions.push(openCommand, openLibraryCommand, editorChangeListener, docChangeListener);
+    context.subscriptions.push(openCommand, openLibraryCommand, editorChangeListener);
 }
 function detectAndSwitchLibrary(text) {
     for (const [importStr, libraryKey] of Object.entries(index_1.importDetectionMap)) {
